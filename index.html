@@ -12,23 +12,25 @@
 <h1>Becoming the Ultimate Bender</h1>
 <h2>MVP Version: Typical Scissor Paper Stone</h2>
 <div class="container">
+    <button id="startMatch">Start Match</button>
     <h3>Round: <span id="roundnum"></span></h3>
-    <h3>Life: <span id="hp"></span></h3>
     <h3>Timer: <span id="timer"></span></h3>
     <p id="message"></p>
     <button id="nextRoundBtn">Next Round</button>
    
     <div class="Player">
+        <h3>Your Health Points: <span id="playerHp"></span></h3>
         <h4>Your choice</h4>
         <p id="pChoice"></p>
         <button class = "pOptionBtn" id="scissor">Scissor</button>
         <button class = "pOptionBtn" id="paper">Paper</button>
         <button class = "pOptionBtn" id="stone">Stone</button>
         <button id="confirmChoiceBtn">Confirm Choice</button>
-        <p id=#lockMessage></p>
+        <p id="lockMessage"></p>
     </div>
 
     <div class="Computer">
+        <h3>Computer Health Points: <span id="computerHp"></span></h3>
         <h4>Computer's Choice</h4>
         <p id="cChoice"></p>
     </div>
