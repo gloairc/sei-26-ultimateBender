@@ -1,12 +1,13 @@
 const game = {
     rounds: 1,
     message: "",
-    // timer: 3, //also in newRound function
+    timer: 5, //also in newRound function
     playerHp: 100,
     computerHp: 100,
-    playerChoice: "",
-    computerChoice: "",
-    lockMessage: ""
+    playerChoice: "To be decided",
+    computerChoice: "To be decided",
+    lockMessage: "",
+    damage: 30
 };
 
 const elements = ["Scissor", "Paper", "Stone"] //"fire","earth","water","air","metal"
@@ -33,7 +34,6 @@ const lockPChoice = () => {//disable option & confirm choice btn after confirmin
 
 const showCChoice = () => { //display C's choice
     let cChoicev = elements[Math.floor(Math.random() * elements.length)] //C random choice
-    console.log(cChoicev);
     game.computerChoice = cChoicev
 }
 
@@ -55,12 +55,30 @@ const gameLogic = () => {//compare P&C and prepare message
     }
 }
 
-const damageIncurredToPlayer = () => {
-    game.playerHp = game.playerHp - 30
+const damageIncurredToPlayer = () => {//damage to player, cap at 0
+    game.playerHp = game.playerHp - game.damage;
+    if (game.playerHp <=0){
+        game.playerHp = 0
+    }
 }
 
-const damageIncurredToComputer = () => {
-    game.computerHp = game.computerHp - 30
+const damageIncurredToComputer = () => {//damage to computer, cap at 0
+    game.computerHp = game.computerHp - game.damage;
+    if (game.playerHp <=0){
+        game.playerHp = 0
+    }
+}
+
+// const showNextRoundBtn =() => {
+
+// }
+
+const showRound = () => {//show match screen and start timer for Round 1
+    $(".container").show();
+    $("#startMatch").css("visibility", "hidden");
+    game.message = "You have 10 seconds to make a move!";
+    startRoundTimer();
+    render()
 }
 
 const playRound = () => {//showCChoice, gameLogic & render
@@ -72,26 +90,26 @@ const playRound = () => {//showCChoice, gameLogic & render
 }
 
 const newRound = () => {//reset the messages & buttons
-    game.message = "";
+    game.message = "You have 10 seconds to make a move";
     game.lockMessage = "";
-    game.playerChoice = "";
-    game.computerChoice = "";
-    game.timer = 10;
-    game.rounds ++;
+    game.playerChoice = "To be decided";
+    game.computerChoice = "To be decided";
+    game.timer = 5;
+    game.rounds++;
 
     $(".pOptionBtn").attr("disabled", false);
-    $("#confirmChoiceBtn").attr("disabled", false);
-    $("#nextRoundBtn").hide();
-    // startRoundTimer();
+    $("#confirmChoiceBtn").attr("disabled", true);
+    $("#nextRoundBtn").css("visibility", "hidden");
+    startRoundTimer();
     render()
 }
 
-// const startRoundTimer = () => {
-//     let startRoundTimev = setInterval(() => {
-//         $("#timer").text(game.timer);
-//         game.timer--;
-//     }, 1000);
-// }
+const startRoundTimer = () => {
+    let startRoundTimev = setInterval(() => {
+        $("#timer").text(game.timer);
+        game.timer--;
+    }, 1000);
+}
 
 // const stopRoundTimer = () => {
 //     if (game.timer <= 0) {
@@ -102,7 +120,10 @@ const newRound = () => {//reset the messages & buttons
 //set up (clicks)
 const setup = () => {
     // $("#startMatch").on("click", startRoundTimer);
-    $("#nextRoundBtn").hide();
+    $(".container").hide();
+    $("#nextRoundBtn").css("visibility", "hidden");
+
+    $("#startMatch").on("click", showRound);
     $("#confirmChoiceBtn").attr("disabled", true);
     $(".pOptionBtn").on("click", showPChoice);
     $("#confirmChoiceBtn").on("click", playRound);
@@ -114,14 +135,14 @@ const render = () => {
     $("#pChoice").text(game.playerChoice); //want to add in sound here
     $("#cChoice").text(game.computerChoice);
     $("#message").text(game.message)
-    $("#lockMessage").text(game.lockMessage)
-    if (game.message !== "") {
-        $("#nextRoundBtn").show()
-    };
-    // $("#timer").text(game.timer)
-    $("#roundnum").text(game.rounds);
+    // $("#lockMessage").text(game.lockMessage)
+    // if () {
+    //     $("#nextRoundBtn").show() //show after result is computered
+    // };
+    $("#timer").text(game.timer)
+    $("#roundNum").text(game.rounds);
     $("#playerHp").text(game.playerHp);
-    $("#computerHp").text(game.playerHp);
+    $("#computerHp").text(game.computerHp);
 
 }
 
@@ -129,3 +150,4 @@ $(() => {
     setup();
     render()
 })
+

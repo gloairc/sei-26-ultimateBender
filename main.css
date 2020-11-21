@@ -5,3 +5,7 @@ div {
 body {
     background-color: antiquewhite;
 }
+
+#message {
+    background-color: indianred;
+}
