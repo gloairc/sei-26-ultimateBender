@@ -7,7 +7,8 @@ const game = {
     playerChoice: "To be decided",
     computerChoice: "To be decided",
     lockMessage: "",
-    damage: 30
+    damage: 30,
+    selfDefence: 10
 };
 
 const elements = ["Scissor", "Paper", "Stone"] //"fire","earth","water","air","metal"
@@ -49,8 +50,10 @@ const gameLogic = () => {//compare P&C and prepare message
     } else if (game.playerChoice === elements[2] && game.computerChoice === elements[0]) {
         game.message = "You won the round";
         damageIncurredToComputer()
-    } else {
-        game.message = "You lost the round";
+    } else if (game.playerChoice === "You didn't choose your move in time!") {
+        game.message = "Your opponent attacked you. You quickly dogded the attack. Some harm was inflicted, but you managed to escape from a full-force attack"
+        damageIncurredToPlayerAuto()
+    } else {game.message = "You lost the round";
         damageIncurredToPlayer()
     }
 }
@@ -64,28 +67,34 @@ const damageIncurredToPlayer = () => {//damage to player, cap at 0
 
 const damageIncurredToComputer = () => {//damage to computer, cap at 0
     game.computerHp = game.computerHp - game.damage;
+    if (game.computerHp <=0){
+        game.computerHp = 0
+    }
+}
+
+const damageIncurredToPlayerAuto = () => {//damage to player, cap at 0
+    game.playerHp = game.playerHp - game.damage + game.selfDefence;
     if (game.playerHp <=0){
         game.playerHp = 0
     }
 }
 
-// const showNextRoundBtn =() => {
-
-// }
+const showNextRoundBtn =() => {
+    $("#nextRoundBtn").css("visibility", "visible");
+}
 
 const showRound = () => {//show match screen and start timer for Round 1
     $(".container").show();
     $("#startMatch").css("visibility", "hidden");
     game.message = "You have 10 seconds to make a move!";
-    startRoundTimer();
     render()
 }
 
 const playRound = () => {//showCChoice, gameLogic & render
-    // startRoundTimer();
     lockPChoice();
     showCChoice();
     gameLogic();
+    endMatch();
     render()
 }
 
@@ -100,34 +109,62 @@ const newRound = () => {//reset the messages & buttons
     $(".pOptionBtn").attr("disabled", false);
     $("#confirmChoiceBtn").attr("disabled", true);
     $("#nextRoundBtn").css("visibility", "hidden");
-    startRoundTimer();
+    roundTimer();
     render()
 }
 
-const startRoundTimer = () => {
-    let startRoundTimev = setInterval(() => {
-        $("#timer").text(game.timer);
-        game.timer--;
-    }, 1000);
+const showNextBtn = () => {//visible nextBtn to click
+    $("#nextBtn").css("visibility", "visible");
 }
 
-// const stopRoundTimer = () => {
-//     if (game.timer <= 0) {
-//         clearInterval(startRoundTimev)
-//     }
-// }
+const endMatch = () =>{//when hp=0, win or loss message, show nextBtn
+    if (game.playerHp === 0) {
+        game.message = "You lost the round and have been defeated. Try harder next time!";
+        showNextBtn();
+    } else if (game.computerHp === 0) {
+        game.message = "You won the round and defeated your opponent. Congratulations!";
+        showNextBtn();
+    } 
+}
 
+const roundTimer = () => {
+    const startRoundTimev = setInterval(() => {
+        $("#timer").text(game.timer);
+        game.timer--;
+    if (game.timer <= -1) {
+        clearInterval(startRoundTimev)
+    } 
+}, 1000);
+}
+
+const showStoryScreen = () => {
+    $(".container").hide();
+    $(".storyContainer").show();
+}
+
+const playAutoRound = () => {
+    game.playerChoice = "You didn't choose your move in time!"
+    lockPChoice();
+    showCChoice();
+    gameLogic();
+    endMatch();
+    render()
+}
 //set up (clicks)
 const setup = () => {
-    // $("#startMatch").on("click", startRoundTimer);
+    $("#startMatch").on("click", roundTimer);
     $(".container").hide();
+    $(".storyContainer").hide();
     $("#nextRoundBtn").css("visibility", "hidden");
+    $("#nextBtn").css("visibility", "hidden");
 
     $("#startMatch").on("click", showRound);
     $("#confirmChoiceBtn").attr("disabled", true);
     $(".pOptionBtn").on("click", showPChoice);
     $("#confirmChoiceBtn").on("click", playRound);
-    $("#nextRoundBtn").on("click", newRound)
+    if (game.timer === 0) {playAutoRound};
+    $("#nextRoundBtn").on("click", newRound);
+    $("#nextBtn").on("click",showStoryScreen)
 };
 
 //draw on screen
@@ -136,9 +173,9 @@ const render = () => {
     $("#cChoice").text(game.computerChoice);
     $("#message").text(game.message)
     // $("#lockMessage").text(game.lockMessage)
-    // if () {
-    //     $("#nextRoundBtn").show() //show after result is computered
-    // };
+    if (game.message == "It's a tie!" || game.message == "You won the round" || game.message == "You lost the round") {
+       showNextRoundBtn()
+    };
     $("#timer").text(game.timer)
     $("#roundNum").text(game.rounds);
     $("#playerHp").text(game.playerHp);
@@ -148,6 +185,6 @@ const render = () => {
 
 $(() => {
     setup();
-    render()
+    render();
 })
 
