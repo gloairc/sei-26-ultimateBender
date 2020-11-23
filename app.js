@@ -1,15 +1,13 @@
 const game = {
     rounds: 1,
     message: "",
-    timer: 5, //also in newRound function
     playerHp: 100,
     computerHp: 100,
     playerChoice: "To be decided",
     computerChoice: "To be decided",
     lockMessage: "",
     damage: 30,
-    selfDefence: 10
-};
+    };
 
 const elements = ["Scissor", "Paper", "Stone"] //"fire","earth","water","air","metal"
 
@@ -83,7 +81,7 @@ const showNextRoundBtn =() => {
     $("#nextRoundBtn").css("visibility", "visible");
 }
 
-const showRound = () => {//show match screen and start timer for Round 1
+const showRound = () => {//show match screen for Round 1
     $(".container").show();
     $("#startMatch").css("visibility", "hidden");
     game.message = "You have 10 seconds to make a move!";
@@ -103,13 +101,11 @@ const newRound = () => {//reset the messages & buttons
     game.lockMessage = "";
     game.playerChoice = "To be decided";
     game.computerChoice = "To be decided";
-    game.timer = 5;
     game.rounds++;
 
     $(".pOptionBtn").attr("disabled", false);
     $("#confirmChoiceBtn").attr("disabled", true);
     $("#nextRoundBtn").css("visibility", "hidden");
-    roundTimer();
     render()
 }
 
@@ -127,16 +123,6 @@ const endMatch = () =>{//when hp=0, win or loss message, show nextBtn
     } 
 }
 
-const roundTimer = () => {
-    const startRoundTimev = setInterval(() => {
-        $("#timer").text(game.timer);
-        game.timer--;
-    if (game.timer <= -1) {
-        clearInterval(startRoundTimev)
-    } 
-}, 1000);
-}
-
 const showStoryScreen = () => {
     $(".container").hide();
     $(".storyContainer").show();
@@ -152,7 +138,6 @@ const playAutoRound = () => {
 }
 //set up (clicks)
 const setup = () => {
-    $("#startMatch").on("click", roundTimer);
     $(".container").hide();
     $(".storyContainer").hide();
     $("#nextRoundBtn").css("visibility", "hidden");
@@ -162,7 +147,6 @@ const setup = () => {
     $("#confirmChoiceBtn").attr("disabled", true);
     $(".pOptionBtn").on("click", showPChoice);
     $("#confirmChoiceBtn").on("click", playRound);
-    if (game.timer === 0) {playAutoRound};
     $("#nextRoundBtn").on("click", newRound);
     $("#nextBtn").on("click",showStoryScreen)
 };
@@ -176,7 +160,6 @@ const render = () => {
     if (game.message == "It's a tie!" || game.message == "You won the round" || game.message == "You lost the round") {
        showNextRoundBtn()
     };
-    $("#timer").text(game.timer)
     $("#roundNum").text(game.rounds);
     $("#playerHp").text(game.playerHp);
     $("#computerHp").text(game.computerHp);
