@@ -1,33 +1,54 @@
+const elements = ["Fire", "Metal", "Wood", "Earth", "Water"]
+
+const createPlayer = (name, hp, d1, d2, d3, d4, d5) => {
+    let player = {
+        playerName: name,
+        playerHp : hp,
+        playerChoice : "Not decided yet",
+        playerDamagingPower: {
+            [elements[0]]: d1,
+            [elements[1]]: d2,
+            [elements[2]]: d3,
+            [elements[3]]: d4,
+            [elements[4]]: d5
+        },
+        playerWeakeningPower: {// 2/3 of damagerPower
+            [elements[0]]: Math.ceil(d1/3*2),
+            [elements[1]]: Math.ceil(d2/3*2),
+            [elements[2]]: Math.ceil(d3/3*2),
+            [elements[3]]: Math.ceil(d4/3*2),
+            [elements[4]]: Math.ceil(d5/3*2)
+        },
+        playerHealingPower: {// 1/3 of damagerPower
+            [elements[0]]: Math.ceil(d1/3),
+            [elements[1]]: Math.ceil(d1/3),
+            [elements[2]]: Math.ceil(d1/3),
+            [elements[3]]: Math.ceil(d1/3),
+            [elements[4]]: Math.ceil(d1/3)
+        }
+    }
+    return player;
+}
+
 const game = {
     rounds: 1,
     message: "Message at the start of the Match",
-    playerHp: 100,
-    computerHp: 100,
-    playerChoice: "To be decided",
-    computerChoice: "To be decided",
     lockMessage: "",
-    damage: 30,
-    harm: 20,
-    heal: 10
-    // fireDamage: 30,
-    // metalDamage: 30,
-    // woodDamage: 30,
-    // earthDamage: 30,
-    // waterDamage: 30
-};
+    player: createPlayer("Glo", 100, 30, 30, 30, 30, 30),
+    computer: createPlayer("tutorial", 100, 30, 30, 30, 30, 30)
 
-const elements = ["Fire", "Metal", "Wood", "Earth", "Water"]
+};
 
 //handler
 const showPChoice = (event) => { //display Player Choice
     const pChoicev = $(event.target).text();
-    game.playerChoice = pChoicev
+    game.player.playerChoice = pChoicev
     enableConfirmChoiceBtn();
     render();
 }
 
 const enableConfirmChoiceBtn = () => {
-    if (game.playerChoice !== "") {
+    if (game.player.playerChoice !== "") {
         $("#confirmChoiceBtn").attr("disabled", false);
     }
 }
@@ -40,9 +61,10 @@ const disableOptAndConfirmBtn = () => {//disable option & confirm choice btn aft
 
 const showCChoice = () => { //display C's choice
     let cChoicev = elements[Math.floor(Math.random() * elements.length)] //C random choice
-    game.computerChoice = cChoicev
+    game.computer.playerChoice = cChoicev
 }
 
+//GAME LOGIC FOR THE ULTIMATE SCISSORS PAPER STONE
 const tieLogic = (playerChoice, computerChoice) => {//message for a tie
     if (playerChoice === computerChoice) {
         game.message = "It's a tie!"
@@ -50,7 +72,7 @@ const tieLogic = (playerChoice, computerChoice) => {//message for a tie
 }
 
 const isTie = () => {//returns playerC === cChoice
-    return (game.playerChoice === game.computerChoice)
+    return (game.player.playerChoice === game.computer.playerChoice)
 }
 
 const destroyPair = { //key is victim to 1st item in object, key destroys 2nd itme
@@ -62,7 +84,7 @@ const destroyPair = { //key is victim to 1st item in object, key destroys 2nd it
 }
 
 const isDestroyPair = () => {
-    return ((destroyPair[game.playerChoice][game.computerChoice] === "victimTo") || (destroyPair[game.playerChoice][game.computerChoice] === "destroys"))
+    return ((destroyPair[game.player.playerChoice][game.computer.playerChoice] === "victimTo") || (destroyPair[game.player.playerChoice][game.computer.playerChoice] === "destroys"))
 }
 
 const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a destroy relationship
@@ -76,8 +98,9 @@ const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a 
 }
 
 const isweakenHealPair = () => {
-    return ((weakenHealPair[game.playerChoice][game.computerChoice] === "weakens") || (weakenHealPair[game.playerChoice][game.computerChoice] === "heals"))
+    return ((weakenHealPair[game.player.playerChoice][game.computer.playerChoice] === "weakens") || (weakenHealPair[game.player.playerChoice][game.computer.playerChoice] === "heals"))
 }
+
 const weakenHealPair = {//key weakens 1st item in object and heals the 2nd item
     [elements[0]]: { [elements[2]]: "weakens", [elements[3]]: "heals" },
     [elements[1]]: { [elements[3]]: "weakens", [elements[4]]: "heals" },
@@ -100,59 +123,77 @@ const weakenHealLogic = (playerChoice, computerChoice) => {//if pC and cC are in
 
 const gameLogic = () => {//destroy, tie, endMatch
     if (isTie()) {
-        tieLogic(game.playerChoice, game.computerChoice)
+        tieLogic(game.player.playerChoice, game.computer.playerChoice)
         console.log("pair is a tie")
     } else if (isDestroyPair()) {
-        destroyLogic(game.playerChoice, game.computerChoice)
+        destroyLogic(game.player.playerChoice, game.computer.playerChoice)
         console.log("pair is a destroy pair")
     } else {
-        weakenHealLogic(game.playerChoice, game.computerChoice)
+        weakenHealLogic(game.player.playerChoice, game.computer.playerChoice)
         console.log("pair is a weaken-heal pair")
     }
     render()
 }
 
+const isMatchEnd = () => {
+    return (game.player.playerHp === 0 || game.computer.playerHp === 0);
+}
+
+const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm btn, show nextBtn
+    if (game.playerHp === 0) {
+        game.message = "You lost the round and have been defeated. Try harder next time!";
+        showNextBtn();
+        disableOptAndConfirmBtn();
+        $("#nextRoundBtn").css("visibility", "hidden");
+
+    } else if (game.computer.playerHp === 0) {
+        game.message = "You won the round and defeated your opponent. Congratulations!";
+        showNextBtn();
+        disableOptAndConfirmBtn();
+        $("#nextRoundBtn").css("visibility", "hidden");
+    }
+}
 
 //CHANGES TO HEALTHPOINTS - DAMAGE, HARM, HEAL
 const damageIncurredToPlayer = () => {//damage to player, cap at 0
-    game.playerHp = game.playerHp - game.damage;
-    if (game.playerHp <= 0) {
-        game.playerHp = 0
+    game.player.playerHp = game.player.playerHp - game.computer.playerDamagingPower[game.computer.playerChoice]; // player.playerDamagingPower
+    if (game.player.playerHp <= 0) {
+        game.player.playerHp = 0
     }
 }
 
 const damageIncurredToComputer = () => {//damage to computer, cap at 0
-    game.computerHp = game.computerHp - game.damage;
-    if (game.computerHp <= 0) {
-        game.computerHp = 0
+    game.computer.playerHp = game.computer.playerHp - game.player.playerDamagingPower[game.player.playerChoice];
+    if (game.computer.playerHp <= 0) {
+        game.computer.playerHp = 0
     }
 }
 
 const weakenPlayer = () => {//harm to player, cap at 0
-    game.playerHp = game.playerHp - game.harm;
-    if (game.playerHp <= 0) {
-        game.playerHp = 0
+    game.player.playerHp = game.player.playerHp - game.computer.playerWeakeningPower[game.computer.playerChoice];
+    if (game.player.playerHp <= 0) {
+        game.player.playerHp = 0
     }
 }
 
 const weakenComputer = () => {//harm to computer, cap at 0
-    game.computerHp = game.computerHp - game.harm;
-    if (game.computerHp <= 0) {
-        game.computerHp = 0
+    game.computer.playerHp = game.computer.playerHp - game.player.playerWeakeningPower[game.player.playerChoice];
+    if (game.computer.playerHp <= 0) {
+        game.computer.playerHp = 0
     }
 }
 
 const healPlayer = () => {//add heal to max 100
-    game.playerHp = game.playerHp + game.heal;
-    if (game.playerHp >= 100) {
-        game.playerHp = 100
+    game.player.playerHp = game.player.playerHp + game.computer.playerHealingPower[game.computer.playerChoice];
+    if (game.player.playerHp >= 100) {
+        game.player.playerHp = 100
     }
 }
 
 const healComputer = () => {//add heal to max 100
-    game.computerHp = game.computerHp + game.heal;
-    if (game.computerHp >= 100) {
-        game.computerHp = 100
+    game.computer.playerHp = game.computer.playerHp + game.player.playerHealingPower[game.player.playerChoice];
+    if (game.computer.playerHp >= 100) {
+        game.computer.playerHp = 100
     }
 }
 
@@ -172,7 +213,7 @@ const showRound = () => {//show match screen for Round 1
     render()
 }
 
-
+//PLAY ROUND
 const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & render
     disableOptAndConfirmBtn();
     showCChoice();
@@ -181,7 +222,7 @@ const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & rende
     gameLogic();//tie, destroy, weaken/harm
     console.log("run gameLogic")
     if (isMatchEnd()) {
-        endMatch(game.playerChoice, game.computerChoice);
+        endMatch(game.player.playerChoice, game.computer.playerChoice);
         render()
         console.log("isMatchend")
     }
@@ -190,33 +231,14 @@ const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & rende
 const newRound = () => {//reset the messages & buttons
     // game.message = "You have 10 seconds to make a move";
     game.lockMessage = "";
-    game.playerChoice = "To be decided";
-    game.computerChoice = "To be decided";
+    game.player.playerChoice = "To be decided";
+    game.computer.playerChoice = "To be decided";
     game.rounds++;
 
     $(".pOptionBtn").attr("disabled", false);
     $("#confirmChoiceBtn").attr("disabled", true);
     $("#nextRoundBtn").css("visibility", "hidden");
     render()
-}
-
-const isMatchEnd = () => {
-    return (game.playerHp === 0 || game.computerHp === 0);
-}
-
-const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm btn, show nextBtn
-    if (game.playerHp === 0) {
-        game.message = "You lost the round and have been defeated. Try harder next time!";
-        showNextBtn();
-        disableOptAndConfirmBtn();
-        $("#nextRoundBtn").css("visibility", "hidden");
-
-    } else if (game.computerHp === 0) {
-        game.message = "You won the round and defeated your opponent. Congratulations!";
-        showNextBtn();
-        disableOptAndConfirmBtn()
-        $("#nextRoundBtn").css("visibility", "hidden");
-    }
 }
 
 //SHOW PAGE
@@ -242,14 +264,14 @@ const setup = () => {
 
 //draw on screen
 const render = () => {
-    $("#pChoice").text(game.playerChoice); //want to add in sound here
-    $("#cChoice").text(game.computerChoice);
+    $("#pChoice").text(game.player.playerChoice); //want to add in sound here
+    $("#cChoice").text(game.computer.playerChoice);
     $("#message").text(game.message)
     // $("#lockMessage").text(game.lockMessage)
 
     $("#roundNum").text(game.rounds);
-    $("#playerHp").text(game.playerHp);
-    $("#computerHp").text(game.computerHp);
+    $("#playerHp").text(game.player.playerHp);
+    $("#computerHp").text(game.computer.playerHp);
 
 }
 
@@ -258,4 +280,3 @@ $(() => {
     setup();
     render();
 })
-
