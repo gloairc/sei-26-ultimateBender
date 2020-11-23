@@ -7,7 +7,7 @@ const game = {
     computerChoice: "To be decided",
     lockMessage: "",
     damage: 30,
-    harm: 10,
+    harm: 20,
     heal: 10
     // fireDamage: 30,
     // metalDamage: 30,
@@ -43,12 +43,26 @@ const showCChoice = () => { //display C's choice
     game.computerChoice = cChoicev
 }
 
-const destroyPair = {
+const tieLogic = (playerChoice, computerChoice) => {//message for a tie
+    if (playerChoice === computerChoice) {
+        game.message = "It's a tie!"
+    }
+}
+
+const isTie = () => {//returns playerC === cChoice
+    return (game.playerChoice === game.computerChoice)
+}
+
+const destroyPair = { //key is victim to 1st item in object, key destroys 2nd itme
     [elements[0]]: { [elements[4]]: "victimTo", [elements[1]]: "destroys" },
     [elements[1]]: { [elements[0]]: "victimTo", [elements[2]]: "destroys" },
     [elements[2]]: { [elements[1]]: "victimTo", [elements[3]]: "destroys" },
     [elements[3]]: { [elements[2]]: "victimTo", [elements[4]]: "destroys" },
     [elements[4]]: { [elements[3]]: "victimTo", [elements[0]]: "destroys" }
+}
+
+const isDestroyPair = () => {
+    return ((destroyPair[game.playerChoice][game.computerChoice] === "victimTo") || (destroyPair[game.playerChoice][game.computerChoice] === "destroys"))
 }
 
 const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a destroy relationship
@@ -58,60 +72,48 @@ const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a 
     } else if (destroyPair[playerChoice][computerChoice] === "destroys") {
         damageIncurredToComputer()
         game.message = "You won the round/ You destroy your opponent";
-    } 
-}
-
-const tieLogic = (playerChoice, computerChoice) => {//message for a tie
-    if (playerChoice === computerChoice) {
-        game.message = "It's a tie!"
     }
 }
 
-const hurtHealPair = {
-    [elements[0]]: { [elements[2]]: "hurt", [elements[3]]: "heal" },
-    [elements[1]]: { [elements[3]]: "hurt", [elements[4]]: "heal" },
-    [elements[2]]: { [elements[4]]: "hurt", [elements[0]]: "heal" },
-    [elements[3]]: { [elements[0]]: "hurt", [elements[1]]: "heal" },
-    [elements[4]]: { [elements[1]]: "hurt", [elements[2]]: "heal" }
-}  
+const isweakenHealPair = () => {
+    return ((weakenHealPair[game.playerChoice][game.computerChoice] === "weakens") || (weakenHealPair[game.playerChoice][game.computerChoice] === "heals"))
+}
+const weakenHealPair = {//key weakens 1st item in object and heals the 2nd item
+    [elements[0]]: { [elements[2]]: "weakens", [elements[3]]: "heals" },
+    [elements[1]]: { [elements[3]]: "weakens", [elements[4]]: "heals" },
+    [elements[2]]: { [elements[4]]: "weakens", [elements[0]]: "heals" },
+    [elements[3]]: { [elements[0]]: "weakens", [elements[1]]: "heals" },
+    [elements[4]]: { [elements[1]]: "weakens", [elements[2]]: "heals" }
+}
 
-const hurtHealLogic = (playerChoice, computerChoice) => {//if pC and cC are in a hurt-heal relationship
-    if (hurtHealPair[playerChoice][computerChoice] === "hurt") {
-        harmIncurredToPlayer();
-        healComputer();
-        game.message = "You lost the round/ Your opponent hurt you and was healed in return";
-    } else if (hurtHealPair[playerChoice][computerChoice] === "heals") {
-        harmIncurredToComputer();
+const weakenHealLogic = (playerChoice, computerChoice) => {//if pC and cC are in a hurt-heal relationship
+    if (weakenHealPair[playerChoice][computerChoice] === "weakens") {
+        weakenComputer();
         healPlayer();
         game.message = "You won the round/ You hurt your opponent and got healed in return";
-    } 
-}
-
-const healPlayer = () =>{
-    game.playerHp = game.playerHp + game.heal;
-    if (game.playerHp >= 0) {
-        game.playerHp = 100
-    }
-}
-
-const healComputer = () =>{
-    game.computerHp = game.computerHp + game.heal;
-    if (game.computerHp >= 0) {
-        game.computerHp = 100
+    } else if (weakenHealPair[playerChoice][computerChoice] === "heals") {
+        weakenPlayer();
+        healComputer();
+        game.message = "You lost the round/ Your opponent hurt you and was healed in return";
     }
 }
 
 const gameLogic = () => {//destroy, tie, endMatch
-    //if either is 0, message, exit this fn
-    //else check if tie, message, exit this fn
-    //else check if destroy, exit this fn
-    // else its a hurt/heal relationship
-    destroyLogic(game.playerChoice, game.computerChoice);
-    hurtHealLogic(game.playerChoice, game.computerChoice);
-    tieLogic(game.playerChoice, game.computerChoice); //so that override message if its a tie
-    endMatch()
+    if (isTie()) {
+        tieLogic(game.playerChoice, game.computerChoice)
+        console.log("pair is a tie")
+    } else if (isDestroyPair()) {
+        destroyLogic(game.playerChoice, game.computerChoice)
+        console.log("pair is a destroy pair")
+    } else {
+        weakenHealLogic(game.playerChoice, game.computerChoice)
+        console.log("pair is a weaken-heal pair")
+    }
+    render()
 }
 
+
+//CHANGES TO HEALTHPOINTS - DAMAGE, HARM, HEAL
 const damageIncurredToPlayer = () => {//damage to player, cap at 0
     game.playerHp = game.playerHp - game.damage;
     if (game.playerHp <= 0) {
@@ -126,22 +128,41 @@ const damageIncurredToComputer = () => {//damage to computer, cap at 0
     }
 }
 
-const harmIncurredToPlayer = () => {//harm to player, cap at 0
+const weakenPlayer = () => {//harm to player, cap at 0
     game.playerHp = game.playerHp - game.harm;
-    if (game.playerHp <=0){
+    if (game.playerHp <= 0) {
         game.playerHp = 0
     }
 }
 
-const harmIncurredToComputer = () => {//harm to computer, cap at 0
+const weakenComputer = () => {//harm to computer, cap at 0
     game.computerHp = game.computerHp - game.harm;
-    if (game.computerHp <=0){
+    if (game.computerHp <= 0) {
         game.computerHp = 0
     }
 }
 
+const healPlayer = () => {//add heal to max 100
+    game.playerHp = game.playerHp + game.heal;
+    if (game.playerHp >= 100) {
+        game.playerHp = 100
+    }
+}
+
+const healComputer = () => {//add heal to max 100
+    game.computerHp = game.computerHp + game.heal;
+    if (game.computerHp >= 100) {
+        game.computerHp = 100
+    }
+}
+
+//SHOW BUTTONS
 const showNextRoundBtn = () => {
     $("#nextRoundBtn").css("visibility", "visible");
+}
+
+const showNextBtn = () => {//visible nextBtn to click
+    $("#nextBtn").css("visibility", "visible");
 }
 
 const showRound = () => {//show match screen for Round 1
@@ -151,12 +172,19 @@ const showRound = () => {//show match screen for Round 1
     render()
 }
 
+
 const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & render
     disableOptAndConfirmBtn();
     showCChoice();
-    showNextRoundBtn(); 
-    gameLogic();//destory, tie, endmatch
-    render()
+    showNextRoundBtn();
+    console.log("i have played round")
+    gameLogic();//tie, destroy, weaken/harm
+    console.log("run gameLogic")
+    if (isMatchEnd()) {
+        endMatch(game.playerChoice, game.computerChoice);
+        render()
+        console.log("isMatchend")
+    }
 }
 
 const newRound = () => {//reset the messages & buttons
@@ -172,14 +200,14 @@ const newRound = () => {//reset the messages & buttons
     render()
 }
 
-const showNextBtn = () => {//visible nextBtn to click
-    $("#nextBtn").css("visibility", "visible");
+const isMatchEnd = () => {
+    return (game.playerHp === 0 || game.computerHp === 0);
 }
 
 const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm btn, show nextBtn
     if (game.playerHp === 0) {
         game.message = "You lost the round and have been defeated. Try harder next time!";
-       showNextBtn();
+        showNextBtn();
         disableOptAndConfirmBtn();
         $("#nextRoundBtn").css("visibility", "hidden");
 
@@ -191,6 +219,7 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
     }
 }
 
+//SHOW PAGE
 const showStoryScreen = () => {
     $(".container").hide();
     $(".storyContainer").show();
