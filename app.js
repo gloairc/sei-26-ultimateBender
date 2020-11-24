@@ -35,7 +35,8 @@ const game = {
     message: "Message at the start of the Match",
     player: createPlayer("", 100, 30, 30, 30, 30, 30),
     computer: createPlayer("tutorial", 100, 30, 30, 30, 30, 30),
-    storyText: ""
+    storyText: "",
+    faction: elements[0] //which element country are we in
 };
 
 //if another opponent
@@ -51,6 +52,10 @@ const enableStartAdventureBtn = () => {
 const updatePlayerName = () => {
     game.player.avatarName = $("#inputName").val()
 }
+
+// const updateElementFaction = () => {
+//     game.faction = elements[0] 
+// }
 
 const showPChoice = (event) => { //display Player Choice
     const pChoicev = $(event.target).text();
@@ -73,6 +78,10 @@ const disableOptAndConfirmBtn = () => {//disable option & confirm choice btn aft
 const showCChoice = () => { //display C's choice
     let cChoicev = elements[Math.floor(Math.random() * elements.length)] //C random choice
     game.computer.avatarChoice = cChoicev
+}
+
+const updatePlayerDamagingPower = () => {//update faction power by +5
+    game.player.avatarDamagingPower[game.faction] += 5
 }
 
 //GAME LOGIC FOR THE ULTIMATE SCISSORS PAPER STONE
@@ -163,9 +172,11 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
         game.storyText = "and the adventure continues"
 
     } else if (game.computer.avatarHp === 0) {
-        game.message = "You won the round and defeated your opponent. Congratulations!";
+        game.message = "You won the round and defeated your opponent. Congratulations! You also improved your " + game.faction + " power by 5xp";
+        updatePlayerDamagingPower();
         showNextBtn();
         disableOptAndConfirmBtn();
+
         $("#nextRoundBtn").css("visibility", "hidden");
         game.storyText = "and the adventure continues"
     }
@@ -265,6 +276,7 @@ const resetMatch = () => {
     $(".pOptionBtn").attr("disabled", false);
     $("#confirmChoiceBtn").attr("disabled", true);
     $("#nextRoundBtn").css("visibility", "hidden");
+    $("#nextBtn").css("visibility", "hidden");
     render()
 }
 
@@ -280,29 +292,22 @@ const showStoryScreen = () => {
     render()
 }
 
-// const showStartScreen = () => {
-//     $(".startContainer").show();
-//     $(".container").hide();
-//     $(".storyContainer").hide();
-//     $("#startMatch").css("visibility", "visible");
-//     enableStartAdventureBtn();
-// }
-
 //set up (clicks)
 const setup = () => {
+//HIDE SHOW PAGE AT THE START
     $(".startContainer").show();
     $(".container").hide();
     $(".storyContainer").hide();
     enableStartAdventureBtn()
-
+//CSS AND ATTR EVENT
     $("#startMatch").css("visibility", "hidden");
     $("#nextRoundBtn").css("visibility", "hidden");
     $("#nextBtn").css("visibility", "hidden");
     $("#startAdventureBtn").attr("disabled", true);
-
+    $("#confirmChoiceBtn").attr("disabled", true);
+//CLICK EVENT
     $("#startAdventureBtn").on("click", showStoryScreen);
     $("#startMatch").on("click", showRound);
-    $("#confirmChoiceBtn").attr("disabled", true);
     $(".pOptionBtn").on("click", showPChoice);
     $("#confirmChoiceBtn").on("click", playRound);
     $("#nextRoundBtn").on("click", newRound);
@@ -315,6 +320,7 @@ const render = () => {
     $("#storyText").text(game.storyText)
     $("#message").text(game.message)
     $("#roundNum").text(game.rounds);
+    $(".elementFaction").text(game.faction);
 
     $("#playerName").text(game.player.avatarName);
     $("#playerHp").text(game.player.avatarHp);
