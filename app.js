@@ -32,7 +32,7 @@ const createPlayer = (name, hp, dFire, dMetal, dWood, dEarth, dWater) => {
 
 const game = {
     rounds: 1,
-    message: "Message at the start of the Match",
+    message: "",
     player: createPlayer("", 100, 30, 30, 30, 30, 30),
     computer: createPlayer("tutorial", 100, 30, 30, 30, 30, 30),
     storyText: "",
@@ -44,9 +44,9 @@ const game = {
 
 //handler
 const enableStartAdventureBtn = () => {
-    $( "#inputName" ).keydown(function() {
+    $("#inputName").keydown(function () {
         $("#startAdventureBtn").attr("disabled", false);
-      });
+    });
 }
 
 const updatePlayerName = () => {
@@ -86,8 +86,18 @@ const updatePlayerDamagingPower = () => {//update faction power by +5
 
 //GAME LOGIC FOR THE ULTIMATE SCISSORS PAPER STONE
 const tieLogic = (playerChoice, computerChoice) => {//message for a tie
-    if (playerChoice === computerChoice) {
-        game.message = "It's a tie!"
+    let playerPower = game.player.avatarDamagingPower[playerChoice]
+    let computerPower = game.computer.avatarDamagingPower[computerChoice]
+    let diffInPower = Math.abs(playerPower - computerPower);
+
+    if (playerPower> computerPower) {
+        game.computer.avatarHp = game.computer.avatarHp - diffInPower
+        game.message = "Both of you chose " + playerChoice + ". But your " + playerChoice + " power is stronger and inflicted some damange on " + game.computer.avatarName + ".";
+    } else if (computerPower > playerPower) {
+        game.player.avatarHp = game.player.avatarHp - diffInPower
+        game.message = "Both of you chose " + playerChoice + ". But " + game.computer.avatarName + "'s" + playerChoice + " power is stronger and inflicted some damange on you.";
+    } else {
+        game.message = "It's a tie! Both of your " + playerChoice + " power are equally matched!"
     }
 }
 
@@ -161,25 +171,6 @@ const gameLogic = () => {//destroy, tie, endMatch
 
 const isMatchEnd = () => {
     return (game.player.avatarHp === 0 || game.computer.avatarHp === 0);
-}
-
-const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm btn, show nextBtn
-    if (game.player.avatarHp === 0) {
-        game.message = "You lost the round and have been defeated. Try harder next time!";
-        showNextBtn();
-        disableOptAndConfirmBtn();
-        $("#nextRoundBtn").css("visibility", "hidden");
-        game.storyText = "and the adventure continues"
-
-    } else if (game.computer.avatarHp === 0) {
-        game.message = "You won the round and defeated your opponent. Congratulations! You also improved your " + game.faction + " power by 5xp";
-        updatePlayerDamagingPower();
-        showNextBtn();
-        disableOptAndConfirmBtn();
-
-        $("#nextRoundBtn").css("visibility", "hidden");
-        game.storyText = "and the adventure continues"
-    }
 }
 
 //CHANGES TO HEALTHPOINTS - DAMAGE, HARM, HEAL
@@ -265,8 +256,27 @@ const newRound = () => {//reset the messages & buttons
     render()
 }
 
+const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm btn, show nextBtn
+    if (game.player.avatarHp === 0) {
+        game.message = "You lost the round and have been defeated. Try harder next time!";
+        showNextBtn();
+        disableOptAndConfirmBtn();
+        $("#nextRoundBtn").css("visibility", "hidden");
+        game.storyText = "and the adventure continues"
+
+    } else if (game.computer.avatarHp === 0) {
+        game.message = "You won the round and defeated your opponent. Congratulations! You also improved your " + game.faction + " power by 5xp";
+        updatePlayerDamagingPower();
+        showNextBtn();
+        disableOptAndConfirmBtn();
+
+        $("#nextRoundBtn").css("visibility", "hidden");
+        game.storyText = "and the adventure continues"
+    }
+}
+
 const resetMatch = () => {
-    game.message = ""
+    game.message = "Time for battle!"
     game.player.avatarHp = 100;
     game.computer.avatarHp = 100;
     game.player.avatarChoice = "To be decided";
@@ -294,18 +304,18 @@ const showStoryScreen = () => {
 
 //set up (clicks)
 const setup = () => {
-//HIDE SHOW PAGE AT THE START
+    //HIDE SHOW PAGE AT THE START
     $(".startContainer").show();
     $(".container").hide();
     $(".storyContainer").hide();
     enableStartAdventureBtn()
-//CSS AND ATTR EVENT
+    //CSS AND ATTR EVENT
     $("#startMatch").css("visibility", "hidden");
     $("#nextRoundBtn").css("visibility", "hidden");
     $("#nextBtn").css("visibility", "hidden");
     $("#startAdventureBtn").attr("disabled", true);
     $("#confirmChoiceBtn").attr("disabled", true);
-//CLICK EVENT
+    //CLICK EVENT
     $("#startAdventureBtn").on("click", showStoryScreen);
     $("#startMatch").on("click", showRound);
     $(".pOptionBtn").on("click", showPChoice);
