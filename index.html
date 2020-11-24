@@ -9,69 +9,71 @@
     <link rel="stylesheet" href="main.css">
     <title>Ultimate Bender</title>
 </head>
-<h1>Becoming the Ultimate Bender</h1>
-<h2>Master the 5 elements and defeat the evil lord</h2>
-<button id="startMatch">Start Match</button>
 
-<div class="container">
-    <h3 class="faction">Faction: <span class="elementFaction">Fire</span></h3>
-    <h3 id="round">Round: <span id="roundNum"></span></h3>
-    <p id="message"></p>
-    <button id="nextRoundBtn">Next Round</button>
-    <button id="nextBtn">Next</button>
-
-    <div class="player">
-        <h3>Player Name: <span id="playerName"></span></h3>
-        <h3>Health Points: <span id="playerHp"></span></h3>
-        <h4>Your choice</h4>
-        <p id="pChoice"></p>
-        <button class="pOptionBtn" id="fire">Fire</button>
-        <button class="pOptionBtn" id="metal">Metal</button>
-        <button class="pOptionBtn" id="wood">Wood</button>
-        <button class="pOptionBtn" id="earth">Earth</button>
-        <button class="pOptionBtn" id="water">Water</button>
-        <button id="confirmChoiceBtn">Confirm Choice</button>
-
-        <div class="powerList" id = "playerPowerList">
-           <p class="pPowerItem">Fire Damage: <span id="pFireDamage"></span></p> 
-            <p class="pPowerItem">Metal Damage: <span id="pMetalDamage"></span></p>
-            <p class="pPowerItem">Wood Damage: <span id="pWoodDamage"></span></p>
-            <p class="pPowerItem">Earth Damage: <span id="pEarthDamage"></span></p>
-            <p class="pPowerItem">Water Damage: <span id="pWaterDamage"></span></p>
-        </div>
-    </div>
-
-    <div class="computer">
-        <h3>Opponent Name: <span id="computerName"></span></h3>
-        <h3>Opponent Health Points: <span id="computerHp"></span></h3>
-        <h4>Opponent's Choice</h4>
-        <p id="cChoice"></p>
-
-        <div class="powerList" id = "computerPowerList">
-            <p class="cPowerItem">Fire Damage: <span id="cFireDamage"></span></p> 
-             <p class="cPowerItem">Metal Damage: <span id="cMetalDamage"></span></p>
-             <p class="cPowerItem">Wood Damage: <span id="cWoodDamage"></span></p>
-             <p class="cPowerItem">Earth Damage: <span id="cEarthDamage"></span></p>
-             <p class="cPowerItem">Water Damage: <span id="cWaterDamage"></span></p>
-         </div>
-    </div>
-
+<body>
+    <header id="header">Ultimate Bender</header>
+<div>
+    <p>Become the Ultimate Element Bender</p>
+    <p>Master the 5 elements and defeat the evil lord</p>
 </div>
+    <button id="startMatch">Start Match</button>
 
-    <div class = storyContainer>
-<h3 class="faction">Faction: <span class="elementFaction"></span></h3>
-<p id="storyText"></p>
+    <div class="container">
+        <h3 class="faction">Faction: <span class="elementFaction">Fire</span></h3>
+        <h3 id="round">Round: <span id="roundNum"></span></h3>
+        <p id="message"></p>
+        <button id="nextRoundBtn">Next Round</button>
+        <button id="nextBtn">Next</button>
+
+        <div class="player">
+            <h3>Player Name: <span id="playerName"></span></h3>
+            <h3>Health Points: <span id="playerHp"></span></h3>
+            <h4>Your choice</h4>
+            <p id="pChoice"></p>
+            <button class="pOptionBtn" id="fire">Fire</button>
+            <button class="pOptionBtn" id="metal">Metal</button>
+            <button class="pOptionBtn" id="wood">Wood</button>
+            <button class="pOptionBtn" id="earth">Earth</button>
+            <button class="pOptionBtn" id="water">Water</button>
+            <button id="confirmChoiceBtn">Confirm Choice</button>
+
+            <div class="powerList" id="playerPowerList">
+                <p class="pPowerItem">Fire Damage: <span id="pFireDamage"></span></p>
+                <p class="pPowerItem">Metal Damage: <span id="pMetalDamage"></span></p>
+                <p class="pPowerItem">Wood Damage: <span id="pWoodDamage"></span></p>
+                <p class="pPowerItem">Earth Damage: <span id="pEarthDamage"></span></p>
+                <p class="pPowerItem">Water Damage: <span id="pWaterDamage"></span></p>
+            </div>
+        </div>
+
+        <div class="computer">
+            <h3>Opponent Name: <span id="computerName"></span></h3>
+            <h3>Opponent Health Points: <span id="computerHp"></span></h3>
+            <h4>Opponent's Choice</h4>
+            <p id="cChoice"></p>
+
+            <div class="powerList" id="computerPowerList">
+                <p class="cPowerItem">Fire Damage: <span id="cFireDamage"></span></p>
+                <p class="cPowerItem">Metal Damage: <span id="cMetalDamage"></span></p>
+                <p class="cPowerItem">Wood Damage: <span id="cWoodDamage"></span></p>
+                <p class="cPowerItem">Earth Damage: <span id="cEarthDamage"></span></p>
+                <p class="cPowerItem">Water Damage: <span id="cWaterDamage"></span></p>
+            </div>
+        </div>
+
     </div>
 
-    <div class = startContainer>
+    <div class=storyContainer>
+        <h3 class="faction">Faction: <span class="elementFaction"></span></h3>
+        <p id="storyText"></p>
+    </div>
+
+    <div class=startContainer>
         <h2>Greetings</h2>
         <p>Enter your name</p>
         <input id="inputName">
         <button id="startAdventureBtn">Start Adventure</button>
-            </div>
-        
-
-<body>
+    </div>
 
 </body>
 

@@ -1,9 +1,19 @@
+header {
+background-color: black;
+color: white;
+font-size: 18pt;
+font-weight: bold;
+padding: 5px 10px 5px 10px
+}
+
 div {
     border: 1px solid maroon
 }
 
 body {
-    background-color: antiquewhite;
+    background-color: white;
+    border: 1px black solid;
+    padding: 0px 0px 20px 0px
 }
 
 #message {

@@ -228,9 +228,14 @@ const showNextBtn = () => {//visible nextBtn to click
 const showRound = () => {//show match screen for Round 1
     $(".container").show();
     $("#startMatch").css("visibility", "hidden");
+    // $("#header").css("background-color","red");
     // game.message = "You have 10 seconds to make a move";
     render()
 }
+
+// const createFireShifuMatch = () => {
+//     game.computer = createPlayer("Fire Shifu", 100, 80, 50, 50, 50, 30)
+// }
 
 //PLAY ROUND
 const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & render
