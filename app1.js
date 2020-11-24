@@ -1,4 +1,4 @@
-const elements = ["Fire", "Metal", "Wood", "Earth", "Water"]
+const elements = ["Fire","Metal", "Wood", "Earth", "Water"]
 
 const createPlayer = (name, hp, dFire, dMetal, dWood, dEarth, dWater) => {
     let avatar = {
@@ -6,8 +6,8 @@ const createPlayer = (name, hp, dFire, dMetal, dWood, dEarth, dWater) => {
         avatarHp: hp,
         avatarChoice: "Not decided yet",
         avatarDamagingPower: {
-            [elements[0]]: dFire,
-            [elements[1]]: dMetal,
+            [elements[1]]: dFire,
+            [elements[0]]: dMetal,
             [elements[2]]: dWood,
             [elements[3]]: dEarth,
             [elements[4]]: dWater
@@ -33,25 +33,14 @@ const createPlayer = (name, hp, dFire, dMetal, dWood, dEarth, dWater) => {
 const game = {
     rounds: 1,
     message: "Message at the start of the Match",
-    player: createPlayer("", 100, 30, 30, 30, 30, 30),
-    computer: createPlayer("tutorial", 100, 30, 30, 30, 30, 30),
-    storyText: ""
+    player: createPlayer("Player1", 100, 30, 30, 30, 30, 30),
+    computer: createPlayer("tutorial", 100, 30, 30, 30, 30, 30)
 };
 
 //if another opponent
 // game.computer = createPlayer("opponentname","hp",dF, dM, dWood, dE, dWater)
 
 //handler
-const enableStartAdventureBtn = () => {
-    $( "#inputName" ).keydown(function() {
-        $("#startAdventureBtn").attr("disabled", false);
-      });
-}
-
-const updatePlayerName = () => {
-    game.player.avatarName = $("#inputName").val()
-}
-
 const showPChoice = (event) => { //display Player Choice
     const pChoicev = $(event.target).text();
     game.player.avatarChoice = pChoicev
@@ -95,7 +84,7 @@ const destroyPair = { //key is victim to 1st item in object, key destroys 2nd it
 }
 
 const isDestroyPair = () => {
-    return (destroyPair[game.player.avatarChoice][game.computer.avatarChoice] === "victimTo") || (destroyPair[game.player.avatarChoice][game.computer.avatarChoice] === "destroys")
+    return ((destroyPair[game.player.avatarChoice][game.computer.avatarChoice] === "victimTo") || (destroyPair[game.player.avatarChoice][game.computer.avatarChoice] === "destroys"))
 }
 
 const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a destroy relationship
@@ -160,14 +149,12 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
         showNextBtn();
         disableOptAndConfirmBtn();
         $("#nextRoundBtn").css("visibility", "hidden");
-        game.storyText = "and the adventure continues"
 
     } else if (game.computer.avatarHp === 0) {
         game.message = "You won the round and defeated your opponent. Congratulations!";
         showNextBtn();
         disableOptAndConfirmBtn();
         $("#nextRoundBtn").css("visibility", "hidden");
-        game.storyText = "and the adventure continues"
     }
 }
 
@@ -244,6 +231,7 @@ const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & rende
 }
 
 const newRound = () => {//reset the messages & buttons
+    // game.message = "You have 10 seconds to make a move";
     game.player.avatarChoice = "To be decided";
     game.computer.avatarChoice = "To be decided";
     game.rounds++;
@@ -254,53 +242,19 @@ const newRound = () => {//reset the messages & buttons
     render()
 }
 
-const resetMatch = () => {
-    game.message = ""
-    game.player.avatarHp = 100;
-    game.computer.avatarHp = 100;
-    game.player.avatarChoice = "To be decided";
-    game.computer.avatarChoice = "To be decided";
-    game.rounds = 1;
-
-    $(".pOptionBtn").attr("disabled", false);
-    $("#confirmChoiceBtn").attr("disabled", true);
-    $("#nextRoundBtn").css("visibility", "hidden");
-    render()
-}
-
 //SHOW PAGE
 const showStoryScreen = () => {
-    $(".startContainer").hide();
     $(".container").hide();
     $(".storyContainer").show();
-    $("#startMatch").css("visibility", "visible");
-
-    updatePlayerName();
-    resetMatch();
-    render()
 }
-
-// const showStartScreen = () => {
-//     $(".startContainer").show();
-//     $(".container").hide();
-//     $(".storyContainer").hide();
-//     $("#startMatch").css("visibility", "visible");
-//     enableStartAdventureBtn();
-// }
 
 //set up (clicks)
 const setup = () => {
-    $(".startContainer").show();
     $(".container").hide();
     $(".storyContainer").hide();
-    enableStartAdventureBtn()
-
-    $("#startMatch").css("visibility", "hidden");
     $("#nextRoundBtn").css("visibility", "hidden");
     $("#nextBtn").css("visibility", "hidden");
-    $("#startAdventureBtn").attr("disabled", true);
 
-    $("#startAdventureBtn").on("click", showStoryScreen);
     $("#startMatch").on("click", showRound);
     $("#confirmChoiceBtn").attr("disabled", true);
     $(".pOptionBtn").on("click", showPChoice);
@@ -309,13 +263,11 @@ const setup = () => {
     $("#nextBtn").on("click", showStoryScreen)
 };
 
-
 //draw on screen
-const render = () => {
-    $("#storyText").text(game.storyText)
+const render = () => { 
     $("#message").text(game.message)
     $("#roundNum").text(game.rounds);
-
+    
     $("#playerName").text(game.player.avatarName);
     $("#playerHp").text(game.player.avatarHp);
     $("#pChoice").text(game.player.avatarChoice); //want to add in sound here
@@ -324,7 +276,7 @@ const render = () => {
     $("#pWoodDamage").text(game.player.avatarDamagingPower[elements[2]]);
     $("#pEarthDamage").text(game.player.avatarDamagingPower[elements[3]]);
     $("#pWaterDamage").text(game.player.avatarDamagingPower[elements[4]]);
-
+   
     $("#computerName").text(game.computer.avatarName);
     $("#computerHp").text(game.computer.avatarHp);
     $("#cChoice").text(game.computer.avatarChoice);
