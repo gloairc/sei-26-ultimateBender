@@ -34,7 +34,7 @@ const game = {
     rounds: 1,
     message: "",
     player: createPlayer("", 100, 30, 30, 30, 30, 30),
-    computer: createPlayer("tutorial", 100, 30, 30, 30, 30, 30),
+    computer: "",
     storyText: "",
     faction: elements[0] //which element country are we in
 };
@@ -43,9 +43,9 @@ const game = {
 // game.computer = createPlayer("opponentname","hp",dF, dM, dWood, dE, dWater)
 
 //handler
-const enableStartAdventureBtn = () => {
+const enableStartGameBtn = () => {
     $("#inputName").keydown(function () {
-        $("#startAdventureBtn").attr("disabled", false);
+        $("#startGameBtn").attr("disabled", false);
     });
 }
 
@@ -225,17 +225,17 @@ const showNextBtn = () => {//visible nextBtn to click
     $("#nextBtn").css("visibility", "visible");
 }
 
-const showRound = () => {//show match screen for Round 1
-    $(".container").show();
-    $("#startMatch").css("visibility", "hidden");
-    // $("#header").css("background-color","red");
-    // game.message = "You have 10 seconds to make a move";
+const showRound1 = () => {//show match screen for Round 1
+    $(".matchContainer").show();
+    $("#startMatchBtn").css("visibility", "hidden");
+    // $(".startContainer").hide(); //dont need since not shown
+    $(".storyContainer").hide();
+    game.computer = createPlayer("First Fire Opponent", 100, 30, 30, 30, 30, 30);
+    $("#header").css("background-color","red");
+    $("#factionHeaderDiv").css("visibility", "visible");
+    $("factionHeader").text(game.faction)
     render()
 }
-
-// const createFireShifuMatch = () => {
-//     game.computer = createPlayer("Fire Shifu", 100, 80, 50, 50, 50, 30)
-// }
 
 //PLAY ROUND
 const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & render
@@ -280,7 +280,7 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
     }
 }
 
-const resetMatch = () => {
+const resetMatch = () => {//hp 100, round 1
     game.message = "Time for battle!"
     game.player.avatarHp = 100;
     game.computer.avatarHp = 100;
@@ -296,14 +296,127 @@ const resetMatch = () => {
 }
 
 //SHOW PAGE
-const showStoryScreen = () => {
+const showStoryWithNextBtn = () => {//show only story container and next btn
     $(".startContainer").hide();
-    $(".container").hide();
+    $(".matchContainer").hide();
     $(".storyContainer").show();
-    $("#startMatch").css("visibility", "visible");
+    showNextBtn()
+    $("#startMatchBtn").css("visibility", "hidden");
+}
 
+const showStoryWithMatchBtn = () => {//show only story container and match btn
+    $(".startContainer").hide();
+    $(".matchContainer").hide();
+    $(".storyContainer").show();
+    $("#startMatchBtn").css("visibility", "visible");
+    $("#nextBtn").css("visibility", "hidden");
+}
+
+const showStory0Backstory = () => {// update player name, backstory and intro to FIRE
+    showStoryWithNextBtn();
+    const story0Text = "This is the 1st story. Explain backstory and what the game is about."
+    game.storyText = story0Text;
     updatePlayerName();
     resetMatch();
+    render()
+}
+
+const showStory1BeforeFireBattle = () => {// update player name, backstory and intro to FIRE
+    showStoryWithMatchBtn();
+    $("#factionHeaderDiv").css("visibility", "visible");
+    game.computer = createPlayer("Fire Shifu", 100, 80, 50, 50, 50, 30);
+    const story1Text = "Urgh my head feels heavy and gorgy. what just happened? where am i? xxxx.First match with " + game.computer.avatarName + ". Turn up the heat!"
+    game.storyText = story1Text;
+    updatePlayerName();
+    resetMatch();
+    render()
+}
+
+const showStory2AfterFireBattleMoveToMetal = () => {//after defeat fire, move onto metal
+    showStoryWithNextBtn();
+    const story2Text = "Now that I've mastered " + element[0] + ". It's time to move on in my journey to " + elements[1] + "."
+    game.storyText = story2Text
+    resetMatch();
+    render()
+}
+
+const showStory3IntroMetalBeforeBattle = () => {//intro to metal before the match
+    showStoryWithMatchBtn();
+    game.computer = createPlayer("Metal Shifu", 100, 50, 60, 30, 30, 30);
+    const story3Text = "I arrived at Metal Faction. Things are different here. xxxx After weeks for training, its time to put my skills to the test with " + game.computer.avatarName + ". Hope im ready for this"
+    game.storyText = story3Text
+    render()
+}
+
+const showStory4AfterMetalBattleMoveToWood = () => {//after defeat metal, move onto wood
+    showStoryWithNextBtn();
+    const story4Text = "Now that I've mastered " + element[1] + ". It's time to move on in my journey to " + elements[2] + "."
+    game.storyText = story4Text
+    resetMatch();
+    render()
+}
+
+const showStory5IntroWoodBeforeBattle = () => {//intro to wood before the match
+    showStoryWithMatchBtn();
+    game.computer = createPlayer("Wood ShiFu", 100, 50, 50, 60, 30, 30);
+    const story5Text = "Wood Faction. Well, all things woody. AS you would expect, forested area. xxxx After weeks for training, its time to put my skills to face " + game.computer.avatarName + ". Ready to be an Axe-men!"
+    game.storyText = story5Text
+    render()
+}
+
+const showStory6AfterWoodBattleMoveToEarth = () => {//after defeat wood, move onto earth
+    showStoryWithNextBtn();
+    const story6Text = "Now that I've mastered " + element[2] + ", i'm halfway to becoming the Ultimate Bender to defeat the evil lord. It's not easy, but i'm going to persevere on! Moving onto " + elements[3] + "."
+    game.storyText = story6Text
+    resetMatch();
+    render()
+}
+
+const showStory7IntroEarthBeforeBattle = () => {//intro to wood before the match
+    showStoryWithMatchBtn();
+    game.computer = createPlayer("Earth Shifu", 100, 50, 50, 50, 60, 30);
+    const story7Text = "Earth. Dig deep. xxxx After weeks for training, its time to put my skills to face " + game.computer.avatarName + ". Tractor on!"
+    game.storyText = story7Text
+    
+    render()
+}
+
+const showStory8AfterEarthBattleMoveToWater = () => {//after defeat earth, move onto water
+    showStoryWithNextBtn();
+    const story8Text = "Now that I've mastered " + element[3] + ", just one more element to master. Just one more. " + elements[4] + " faction, here i come!"
+    game.storyText = story8Text
+    resetMatch();
+    render()
+}
+
+const showStory8IntroWaterBeforeBattle = () => {//intro to water before the match
+    showStoryWithMatchBtn();
+    game.computer = createPlayer("Water Shifu", 100, 50, 50, 50, 50, 60);
+    const story8Text = "Water. The flow of..... But there's no time to waste.  xxxx The last master to battle before i become a full-fledge elemental bender." + game.computer.avatarName + ", its time to go against the tide!"
+    game.storyText = story8Text
+    render()
+}
+
+const showStory9AfterWaterBattleRest = () => {//after defeat water, learnt all 5. Rest
+    showStoryWithNextBtn();
+    const story9Text = "mastered all 5! time to recupurate and prepare myself for the ultimate showdown!"
+    game.storyText = story9Text
+    resetMatch();
+    render()
+}
+
+const showStory10EvilLordAppears = () => {//evil lord appears
+    showStoryWithMatchBtn();
+    const story10Text = "But time waits for no man. The skies turn grey, .... the evil lord is here. I sensed an aura of a new ultimate bender. do you think you can overthrow me? im going to destory you before you have a chance"
+    game.storyText = story10Text
+    resetMatch();
+    render()
+}
+
+const showStory11AfterFinalShowdownWithEvilLord = () => {//after defeat evil lord
+    showStoryWithNextBtn();
+    const story11Text = "That was a tough battle. but im glad to make it out alive. with evil lord defeated, the people celebrated. i can finally rest. Peace has return!"
+    game.storyText = story11Text
     render()
 }
 
@@ -311,22 +424,27 @@ const showStoryScreen = () => {
 const setup = () => {
     //HIDE SHOW PAGE AT THE START
     $(".startContainer").show();
-    $(".container").hide();
+    $(".matchContainer").hide();
     $(".storyContainer").hide();
-    enableStartAdventureBtn()
-    //CSS AND ATTR EVENT
-    $("#startMatch").css("visibility", "hidden");
+    $(".endGameContainer").hide(); 
+    enableStartGameBtn()   
+
+//CSS AND ATTR EVENT
+    $("#factionHeaderDiv").css("visibility", "hidden");
+    $("#startMatchBtn").css("visibility", "hidden");
     $("#nextRoundBtn").css("visibility", "hidden");
     $("#nextBtn").css("visibility", "hidden");
-    $("#startAdventureBtn").attr("disabled", true);
+    $("#startGameBtn").attr("disabled", true);
     $("#confirmChoiceBtn").attr("disabled", true);
-    //CLICK EVENT
-    $("#startAdventureBtn").on("click", showStoryScreen);
-    $("#startMatch").on("click", showRound);
+
+//CLICK EVENT
+    $("#startGameBtn").on("click", showStory0Backstory);
+    $("#startMatchBtn").on("click", showRound1);
     $(".pOptionBtn").on("click", showPChoice);
     $("#confirmChoiceBtn").on("click", playRound);
     $("#nextRoundBtn").on("click", newRound);
-    $("#nextBtn").on("click", showStoryScreen)
+    $("#nextBtn").on("click", showStory1BeforeFireBattle)
+    //mutliple button each different ids -> show me different pages
 };
 
 
@@ -336,7 +454,7 @@ const render = () => {
     $("#message").text(game.message)
     $("#roundNum").text(game.rounds);
     $(".elementFaction").text(game.faction);
-
+    
     $("#playerName").text(game.player.avatarName);
     $("#playerHp").text(game.player.avatarHp);
     $("#pChoice").text(game.player.avatarChoice); //want to add in sound here
@@ -360,5 +478,6 @@ const render = () => {
 
 $(() => {
     setup();
+    // $(".matchContainer").show(); // skip the name part for now CSS
     render();
 })

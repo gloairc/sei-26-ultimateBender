@@ -11,15 +11,32 @@
 </head>
 
 <body>
-    <header id="header">Ultimate Bender</header>
-<div>
-    <p>Become the Ultimate Element Bender</p>
-    <p>Master the 5 elements and defeat the evil lord</p>
-</div>
-    <button id="startMatch">Start Match</button>
+    <header id="header">
+        <div id="ubTitleHeader">Ultimate Bender</div>
+        <div class="headerLogoDiv">
+            <img class="headerLogo" logo id="firelogo" src="img/fireW.png">
+            <img class="headerLogo" logo id="metallogo" src="img/metalW.png">
+            <img class="headerLogo" logo id="woodlogo" src="img/woodW.png">
+            <img class="headerLogo" logo id="earthlogo" src="img/earthW.png">
+            <img class="headerLogo" logo id="waterlogo" src="img/waterW.png">
+        </div>
 
-    <div class="container">
-        <h3 class="faction">Faction: <span class="elementFaction">Fire</span></h3>
+        <div id="factionHeaderDiv"> <span id="factionHeader"></span>Faction</div>
+    </header>
+
+    <div class="startPageBlurbDiv">
+        <p class="startPageBlurb">Become the Ultimate Element Bender</p>
+        <p class="startPageBlurb">Master all 5 elements and defeat the evil lord</p>
+    </div>
+
+    <div class="startContainer">
+        <h2>Greetings</h2>
+        <p>Enter your name</p>
+        <input id="inputName">
+        <button id="startGameBtn">Start</button>
+    </div>
+
+    <div class="matchContainer">
         <h3 id="round">Round: <span id="roundNum"></span></h3>
         <p id="message"></p>
         <button id="nextRoundBtn">Next Round</button>
@@ -63,16 +80,19 @@
 
     </div>
 
-    <div class=storyContainer>
-        <h3 class="faction">Faction: <span class="elementFaction"></span></h3>
+    <div class="storyContainer">
         <p id="storyText"></p>
     </div>
 
-    <div class=startContainer>
-        <h2>Greetings</h2>
-        <p>Enter your name</p>
-        <input id="inputName">
-        <button id="startAdventureBtn">Start Adventure</button>
+    <div id="btnConsole">
+        <button id="startMatchBtn">Start Match</button>
+    </div>
+
+    <div class="endGameContainer" >
+        <p id="storyText"></p>
+        <p>Game Time Player: <span id="timeSpent"></span></p>
+        show image of all 5 elements
+        Return to Main Page <button id="returnToStartGamePage">Return</button>
     </div>
 
 </body>

@@ -1,9 +1,33 @@
 header {
 background-color: black;
 color: white;
-font-size: 18pt;
+font-size: 20pt;
 font-weight: bold;
-padding: 5px 10px 5px 10px
+padding: 5px 10px 5px 10px;
+height: 25pt;
+display: flex;
+}
+
+#ubTitleHeader {
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+
+.headerLogo{
+    width: auto;
+    height: 25pt; 
+    object-fit: contain;
+    display: inline-flexbox;
+     
+}
+
+#factionHeaderDiv{
+margin-left: auto;
+font-size: 18pt;
+}
+
+.startPageBlurb{
+margin: 0;
 }
 
 div {
@@ -13,7 +37,13 @@ div {
 body {
     background-color: white;
     border: 1px black solid;
-    padding: 0px 0px 20px 0px
+    padding: 0px 0px 20px 0px;
+}
+
+.startContainer {
+margin: auto;
+width: 80%;
+text-align: center;
 }
 
 #message {
