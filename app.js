@@ -54,7 +54,7 @@ const updatePlayerName = () => {
 }
 
 const showPChoice = (event) => { //display Player Choice
-    const pChoicev = $(event.target).text();
+    const pChoicev = $(event.currentTarget).attr("id")
     game.player.avatarChoice = pChoicev
     enableConfirmChoiceBtn();
     render();
@@ -558,6 +558,8 @@ const setup = () => {
     //CLICK EVENT
     $("#startGameBtn").on("click", showStory0Backstory);
     $(".pOptionBtn").on("click", showPChoice);
+    enableConfirmChoiceBtn();
+    render();
     $("#confirmChoiceBtn").on("click", playRound);
     $("#nextRoundBtn").on("click", newRound);
     $(".rematchBtnDiv").on("click", resetMatch);
@@ -623,6 +625,6 @@ const render = () => {
 
 $(() => {
     setup();
-    // $(".matchContainer").show(); // skip the name part for now CSS
+    $(".matchContainer").show(); // skip the name part for now CSS
     render();
 })

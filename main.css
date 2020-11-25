@@ -62,3 +62,19 @@ text-align: center;
 .cPowerItem{
     display: inline-block;
 }
+
+
+.pOptionBtn{
+background-color: transparent;
+border: none;
+}
+
+.pOptionBtnDiv{
+    display: flex;
+flex-direction: row;
+}
+
+.optionImg{
+height: 45px;
+width: auto;
+}
