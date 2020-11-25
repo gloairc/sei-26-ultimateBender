@@ -46,6 +46,10 @@ width: 80%;
 text-align: center;
 }
 
+#btnConsole {
+    background-color: coral;
+}
+
 #message {
     background-color: indianred;
     height: 16pt;
