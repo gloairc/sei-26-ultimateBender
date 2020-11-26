@@ -75,7 +75,7 @@ text-align: center;
 }
 
 /* Damage Power Table on Match Screen */
-#playerDamagePowerTable, th, td, tr{
+.DamagePowerTable, th, td, tr{
     border: 1px royalblue solid
 }
 
@@ -85,12 +85,6 @@ text-align: center;
 
 .damagePowerHeader{
  text-align: left;
-}
-
-
-.pOptionBtnDiv{
-    display: flex;
-    flex-direction: row;
 }
 
 .optionImg{
@@ -108,27 +102,27 @@ text-align: center;
     display:inline-block; */
 }
 
-#Fire:hover{
+#Fire:hover, #Fire:focus{
   background-color: rgb(179, 24, 24);
   color: white;
 }
 
-#Metal:hover {
+#Metal:hover, #Metal:focus {
     background-color: rgb(85, 84, 84);
     color: white;
   }
 
-#Wood:hover {
+#Wood:hover, #Wood:focus {
     background-color:green;
     color: white;
   }
 
-  #Earth:hover {
+  #Earth:hover, #Earth:focus {
     background-color: burlywood;
     color: white;
   }
 
-  #Water:hover {
+  #Water:hover, #Water:focus {
     background-color: blue;
     color: white;
   }
