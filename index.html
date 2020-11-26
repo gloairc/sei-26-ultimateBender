@@ -41,9 +41,9 @@
         <p id="message"></p>
 
         <div class="player">
-            <div id="playerNameHpDiv">
-                <h3>Player Name: <span id="playerName"></span></h3>
-                <h3>Health Points: <span id="playerHp"></span></h3>
+            <div class="nameHpDiv" id="playerNameHpDiv">
+                <div class="nameP">Player: <span id="playerName"></span></div>
+                <div class="HpP">Health Points: <span id="playerHp"></span></div>
             </div>
 
             <div id="playerChoiceDiv">
@@ -51,29 +51,14 @@
                 <p id="pChoice"></p>
             </div>
 
-            <!-- <div class="powerList" id="playerPowerList">
-                <p class="pPowerItem">Fire Damage: <span id="pFireDamage"></span></p>
-                <p class="pPowerItem">Metal Damage: <span id="pMetalDamage"></span></p>
-                <p class="pPowerItem">Wood Damage: <span id="pWoodDamage"></span></p>
-                <p class="pPowerItem">Earth Damage: <span id="pEarthDamage"></span></p>
-                <p class="pPowerItem">Water Damage: <span id="pWaterDamage"></span></p>
-            </div>
-
-            <div class="pOptionBtnDiv">
-                <button class="pOptionBtn" id="Fire"> <img class="optionImg" src="img/fire.png"> <br>Fire</button>
-                <button class="pOptionBtn" id="Metal"><img class="optionImg" src="img/metal.png"> <br>Metal</button>
-                <button class="pOptionBtn" id="Wood"> <img class="optionImg" src="img/wood.png"><br>Wood</button>
-                <button class="pOptionBtn" id="Earth"><img class="optionImg" src="img/earth.png"><br>Earth</button>
-                <button class="pOptionBtn" id="Water"><img class="optionImg" src="img/water.png"><br>Water</button>
-            </div> -->
-
-            <table class="DamagePowerTable" id="playerDamagePowerTable" style="width:100%">
+            <table class="DamagePowerTable" id="playerDamagePowerTable">
                 <tr class="damagePowerHeaderTR">
                     <th colspan="5" class="damagePowerHeader">Damage Power</th>
                 </tr>
                 <tr class="rowOfOptionBtnTR">
-                    <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Fire"> <img class="optionImg"
-                                src="img/fire.png">
+                    <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Fire">
+                            <img class="optionImg" src="img/fire.png">
+                            <!-- <img class="optionImg" id="fireOptionBack" src="img/fireW.png"> -->
                             <br>Fire</button></td>
                     <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Metal"><img class="optionImg"
                                 src="img/metal.png">
@@ -102,36 +87,32 @@
         </div>
 
         <div class="computer">
-            <div id="playerNameHp">
-                <h3>Opponent Name: <span id="computerName"></span></h3>
-                <h3>Opponent Health Points: <span id="computerHp"></span></h3>
+            <div class="nameHpDiv" id="computerNameHp">
+                <div class="nameP">Opponent: <span id="computerName"></span></div>
+                <div class="HpP">Health Points: <span id="computerHp"></span></div>
             </div>
 
             <div id="computerChoiceDiv">
                 <h4>Opponent's Choice</h4>
                 <p id="cChoice"></p>
             </div>
-            <!-- 
-            <div class="powerList" id="computerPowerList">
-                <p class="cPowerItem">Fire Damage: <span id="cFireDamage"></span></p>
-                <p class="cPowerItem">Metal Damage: <span id="cMetalDamage"></span></p>
-                <p class="cPowerItem">Wood Damage: <span id="cWoodDamage"></span></p>
-                <p class="cPowerItem">Earth Damage: <span id="cEarthDamage"></span></p>
-                <p class="cPowerItem">Water Damage: <span id="cWaterDamage"></span></p>
-            </div> -->
 
-            <table class="DamagePowerTable" id="computerDamagePowerTable" style="width:100%">
+            <table class="DamagePowerTable" id="computerDamagePowerTable">
                 <tr class="damagePowerHeaderTR">
                     <th colspan="5" class="damagePowerHeader">Damage Power</th>
                 </tr>
+
                 <tr class="rowOfOptionBtnTR">
-                    <td class="rowOfOptionBtn"><img class="optionImg" src="img/fire.png">
-                        <br>Fire</td>
-                    <td class="rowOfOptionBtn"><img class="optionImg" src="img/metal.png">
-                        <br>Metal</td>
-                    <td class="rowOfOptionBtn"><img class="optionImg" src="img/wood.png"><br>Wood</td>
-                    <td class="rowOfOptionBtn"><img class="optionImg" src="img/earth.png"><br>Earth</td>
-                    <td class="rowOfOptionBtn"><img class="optionImg" src="img/water.png"><br>Water</td>
+                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/fire.png">
+                            <br>Fire </button></td>
+                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/metal.png">
+                            <br>Metal</button></td>
+                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/wood.png">
+                        <br>Wood</button></td>
+                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/earth.png">
+                        <br>Earth</button></td>
+                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/water.png">
+                        <br>Water</button></td>
                 </tr>
                 <tr class="rowOfDamageAmtTR">
                     <td class="rowOfDamageAmt"><span id="cFireDamage"></span></td>

@@ -51,7 +51,7 @@ text-align: center;
 }
 
 #message {
-    background-color: purple;
+    background-color: rgb(218, 141, 218);
     height: 16pt;
 }
 
@@ -61,6 +61,17 @@ text-align: center;
 
 .cPowerItem{
     display: inline-block;
+}
+
+.nameHpDiv{
+    display: flex;
+    justify-content: space-between;
+    background-color: grey;
+}
+
+.nameP, .HpP{
+    color: white;
+    font-size: 16pt;
 }
 
 /* Damage Power Table on Match Screen */
@@ -76,17 +87,68 @@ text-align: center;
  text-align: left;
 }
 
+
+.pOptionBtnDiv{
+    display: flex;
+    flex-direction: row;
+}
+
+.optionImg{
+    height: 45px;
+    width: auto;
+}
+
 .pOptionBtn{
     background-color: transparent;
     border: none;
-    }
-    
-    .pOptionBtnDiv{
-        display: flex;
-    flex-direction: row;
-    }
-    
-    .optionImg{
-    height: 45px;
-    width: auto;
-    }
+    border-radius: 4px;
+    padding: 8px 10px 5px 10px;
+    transition-duration: 0.4s;
+    /* position: relative;
+    display:inline-block; */
+}
+
+#Fire:hover{
+  background-color: rgb(179, 24, 24);
+  color: white;
+}
+
+#Metal:hover {
+    background-color: rgb(85, 84, 84);
+    color: white;
+  }
+
+#Wood:hover {
+    background-color:green;
+    color: white;
+  }
+
+  #Earth:hover {
+    background-color: burlywood;
+    color: white;
+  }
+
+  #Water:hover {
+    background-color: blue;
+    color: white;
+  }
+
+/* #fireOptionBack{ hover effect replace image
+    display: none;
+    position: absolute;
+    top: 2px;
+    left: 7px;
+    z-index: 99;
+}*/
+
+/* .pOptionBtn:hover #fireOptionBack {
+    display: inline;
+} */
+
+
+.cOption{
+    background-color: transparent;
+    border: none;
+    padding: 8px 10px 5px 10px;
+    outline: none;
+}
