@@ -74,6 +74,7 @@ const hideAllPAvatar = () => {
     $("#pAttack").hide();
     $("#pHappy").hide();
     $("#pSad").hide();
+    $("#pBlink").hide();
 }
 
 const hideAllCAvatar = () => {
@@ -81,6 +82,7 @@ const hideAllCAvatar = () => {
     $("#cAttack").hide();
     $("#cHappy").hide();
     $("#cSad").hide();
+    $("#cBlink").hide();
 }
 
 const showPWeapon = () => {
@@ -159,14 +161,20 @@ const tieLogic = (playerChoice, computerChoice) => {//message for a tie
         if (game.computer.avatarHp <= 0) {
             game.computer.avatarHp = 0
         }
+        hideAllPAvatar();
+        $("#pHappy").show();
     } else if (computerPower > playerPower) {
         game.player.avatarHp = game.player.avatarHp - diffInPower
         game.message = "Both of you chose " + playerChoice + ". But " + game.computer.avatarName + "'s" + playerChoice + " power is stronger and inflicted some damange on you.";
         if (game.player.avatarHp <= 0) {
             game.player.avatarHp = 0
         }
+        hideAllPAvatar();
+        $("#pSad").show();
     } else {
         game.message = "It's a tie! Both of your " + playerChoice + " power are equally matched!"
+        hideAllPAvatar();
+        $("#pNeutral").show();
     }
 
 }
@@ -190,12 +198,16 @@ const isDestroyPair = () => {
 const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a destroy relationship
     if (destroyPair[playerChoice][computerChoice] === "victimTo") {
         damageIncurredToPlayer();
-        console.log("player being destroyed, player chose " + playerChoice + ", computer chose " + computerChoice);
-        game.message = "You lost the round/ You are being destroyed by your opponent";
+        console.log("player being damaged, player chose " + playerChoice + ", computer chose " + computerChoice);
+        game.message = "You lost the round. You suffered damange by your opponent."
+        hideAllPAvatar();
+        $("#pSad").show();
     } else if (destroyPair[playerChoice][computerChoice] === "destroys") {
         damageIncurredToComputer()
-        game.message = "You won the round/ You destroy your opponent";
-        console.log("computer being destroyed, player chose " + playerChoice + ", computer chose " + computerChoice);
+        game.message = "You won the round. You caused damaged to your opponent.";
+        hideAllPAvatar();
+        $("#pHappy").show();
+        console.log("Computer being damaged, player chose " + playerChoice + ", computer chose " + computerChoice);
     }
 }
 
@@ -215,13 +227,17 @@ const weakenHealLogic = (playerChoice, computerChoice) => {//if pC and cC are in
     if (weakenHealPair[playerChoice][computerChoice] === "weakens") {
         weakenComputer();
         healPlayer();
-        game.message = "You won the round/ You hurt your opponent and got healed in return";
+        game.message = "You won the round. You hurt your opponent and got healed in return.";
         console.log("player hurt opponent and got healed, player chose " + playerChoice + ", computer chose " + computerChoice)
+        hideAllPAvatar();
+        $("#pHappy").show();
     } else if (weakenHealPair[playerChoice][computerChoice] === "heals") {
         weakenPlayer();
         healComputer();
-        game.message = "You lost the round/ Your opponent hurt you and was healed in return";
+        game.message = "You lost the round. Your opponent hurt you and was healed in return.";
         console.log("opponent hurt player and got healed, player chose " + playerChoice + ", computer chose " + computerChoice)
+        hideAllPAvatar();
+        $("#pSad").show();
     }
 }
 
@@ -236,6 +252,8 @@ const gameLogic = () => {//destroy, tie, endMatch
         weakenHealLogic(game.player.avatarChoice, game.computer.avatarChoice)
         console.log("pair is a weaken-heal pair")
     }
+    $("#pHealthBar").css("width", game.player.avatarHp + "%");
+    $("#cHealthBar").css("width", game.computer.avatarHp +"%");
     render()
 }
 
@@ -311,6 +329,7 @@ const newRound = () => {//reset the messages & buttons
     $("#cNeutral").show()
     hideAllCWeapons()
     $("#pChoiceWeaponDiv").removeClass("horizTranslate")
+    $("#cChoiceWeaponDiv").removeClass("horizTranslate")
     game.player.avatarChoice = "To be decided";
     game.computer.avatarChoice = "To be decided";
     game.rounds++;
@@ -326,6 +345,8 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
     if (game.player.avatarHp === 0) {//player lose
         game.message = "You lost the round and have been defeated. Try harder next time!";
         disableOptAndConfirmBtn();
+        hideAllPAvatar();
+        $("#pBlink").show();
         $(".nextRoundBtnDiv").hide()
         $(".rematchBtnDiv").show();
 
@@ -333,6 +354,8 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
         game.message = "You won the round and defeated your opponent. Congratulations! You also improved your " + game.faction + " power by 5xp";
         updatePlayerDamagingPower();
         disableOptAndConfirmBtn();
+        hideAllPAvatar();
+        $("#pHappy").show();
         $(".nextRoundBtnDiv").hide()
         $(".nextBtnsDiv").show();
         // game.storyText = "and the adventure continues"

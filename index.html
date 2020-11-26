@@ -7,6 +7,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
     <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,800;1,400;1,500;1,700;1,800&display=swap" rel="stylesheet">
     <title>Ultimate Bender</title>
 </head>
 
@@ -40,182 +42,200 @@
         <h3 id="round">Round: <span id="roundNum"></span></h3>
         <p id="message"></p>
 
-        <div class="player">
-            <div class="nameHpDiv" id="playerNameHpDiv">
-                <div class="nameP">Player: <span id="playerName"></span></div>
-                <div class="HpP">Health Points: <span id="playerHp"></span></div>
-            </div>
-
-            <div id="playerChoiceDiv">
-                <p id="pChoiceText">Your choice: <span id="pChoice"></span></p>
-
-                <div class=playingZone>
-                    <div class="avatarDiv">
-                        <img class="pAvatar" id="pNeutral" src="img/neutral@4x.png">
-                        <img class="pAvatar" id="pAttack" src="img/attack@4x.png">
-                        <img class="pAvatar" id="pHappy" src="img/happywin@4x.png">
-                        <img class="pAvatar" id="pSad" src="img/lose@4x.png">
-                    </div>
-
-                    <div class="choiceWeaponDiv" id="pChoiceWeaponDiv">
-                        <img class="pChoiceWeapon" id="pFire" src="img/pFire@4x.png">
-                        <img class="pChoiceWeapon" id="pMetal" src="img/pcMetal@4x.png">
-                        <img class="pChoiceWeapon" id="pWood" src="img/pWood@4x.png">
-                        <img class="pChoiceWeapon" id="pEarth" src="img/pcEarth@4x.png">
-                        <img class="pChoiceWeapon" id="pWater" src="img/pWater@4x.png">
+        <div id="PvsC">
+            <div class="player">
+                <div class="nameHpDiv" id="playerNameHpDiv">
+                    <div class="nameP">Player: <span id="playerName"></span></div>
+                    <div class="HpP">
+                        <div class="wordsHP">HP: </div>
+                        <div class="healthBarBorder">
+                            <div class="healthBar" id="pHealthBar"> <span id="playerHp"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <table class="DamagePowerTable" id="playerDamagePowerTable">
-                <tr class="damagePowerHeaderTR">
-                    <th colspan="5" class="damagePowerHeader">Damage Power</th>
-                </tr>
-                <tr class="rowOfOptionBtnTR">
-                    <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Fire">
-                            <img class="optionImg" src="img/fire.png">
-                            <!-- <img class="optionImg" id="fireOptionBack" src="img/fireW.png"> -->
-                            <br>Fire</button></td>
-                    <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Metal"><img class="optionImg"
-                                src="img/metal.png">
-                            <br>Metal</button></td>
-                    <td class="rowOfOptionBtn"> <button class="pOptionBtn" id="Wood"> <img class="optionImg"
-                                src="img/wood.png"><br>Wood</button></td>
-                    <td class="rowOfOptionBtn"> <button class="pOptionBtn" id="Earth"><img class="optionImg"
-                                src="img/earth.png"><br>Earth</button></td>
-                    <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Water"><img class="optionImg"
-                                src="img/water.png"><br>Water</button></td>
-                </tr>
-                <tr class="rowOfDamageAmtTR">
-                    <td class="rowOfDamageAmt"><span id="pFireDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="pMetalDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="pWoodDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="pEarthDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="pWaterDamage"></span></td>
-                </tr>
-            </table>
+                <div id="playerChoiceDiv">
+                    <p id="pChoiceText">Your choice: <span id="pChoice"></span></p>
 
-            <div class="confirmChoiceBtnDiv">
-                <button id="confirmChoiceBtn">Confirm Choice</button>
-            </div>
-        </div>
-
-        <div class="computer" id="computerDiv">
-            <div class="nameHpDiv" id="computerNameHp">
-                <div class="nameP">Opponent: <span id="computerName"></span></div>
-                <div class="HpP">Health Points: <span id="computerHp"></span></div>
-            </div>
-
-            <div id="computerChoiceAvatarTable">
-                <div id="computerChoiceDiv">
-                    <p id="cChoiceText">Opponent's choice: <span id="cChoice"></span></p>
-
-                    <div class=playingZone id="cPlayingZone">
-                        <div class="choiceWeaponDiv" id="cChoiceWeaponDiv">
-                            <img class="cChoiceWeapon" id="cFire" src="img/cFire@4x.png">
-                            <img class="cChoiceWeapon" id="cMetal" src="img/pcMetal@4x.png">
-                            <img class="cChoiceWeapon" id="cWood" src="img/cWood@4x.png">
-                            <img class="cChoiceWeapon" id="cEarth" src="img/pcEarth@4x.png">
-                            <img class="cChoiceWeapon" id="cWater" src="img/cWater@4x.png">
-                        </div>
-
+                    <div class=playingZone>
                         <div class="avatarDiv">
-                            <!-- need to change the image -->
-                            <img class="cAvatar" id="cNeutral" src="img/neutral@4x.png">
-                            <img class="cAvatar" id="cAttack" src="img/attack@4x.png">
-                            <img class="cAvatar" id="cHappy" src="img/happywin@4x.png">
-                            <img class="cAvatar" id="cSad" src="img/lose@4x.png">
+                            <img class="pAvatar" id="pNeutral" src="img/neutral@4x.png">
+                            <img class="pAvatar" id="pAttack" src="img/attack@4x.png">
+                            <img class="pAvatar" id="pHappy" src="img/happywin@4x.png">
+                            <img class="pAvatar" id="pSad" src="img/lose@4x.png">
+                            <img class="pAvatar" id="pBlink" src="img/blink@4x.png">
                         </div>
 
+                        <div class="choiceWeaponDiv" id="pChoiceWeaponDiv">
+                            <img class="pChoiceWeapon" id="pFire" src="img/pFire@4x.png">
+                            <img class="pChoiceWeapon" id="pMetal" src="img/pcMetal@4x.png">
+                            <img class="pChoiceWeapon" id="pWood" src="img/pWood@4x.png">
+                            <img class="pChoiceWeapon" id="pEarth" src="img/pcEarth@4x.png">
+                            <img class="pChoiceWeapon" id="pWater" src="img/pWater@4x.png">
+                        </div>
                     </div>
                 </div>
-                <div id="cDamageTableDiv">
-                    <table class="DamagePowerTable" id="computerDamagePowerTable">
+
+                <div id="pDamageTable">
+                    <table class="DamagePowerTable" id="playerDamagePowerTable">
                         <tr class="damagePowerHeaderTR">
                             <th colspan="5" class="damagePowerHeader">Damage Power</th>
                         </tr>
-
                         <tr class="rowOfOptionBtnTR">
-                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
-                                        src="img/fire.png">
-                                    <br>Fire </button></td>
-                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                            <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Fire">
+                                    <img class="optionImg" src="img/fire.png">
+                                    <!-- <img class="optionImg" id="fireOptionBack" src="img/fireW.png"> -->
+                                    <br>Fire</button></td>
+                            <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Metal"><img class="optionImg"
                                         src="img/metal.png">
                                     <br>Metal</button></td>
-                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
-                                        src="img/wood.png">
-                                    <br>Wood</button></td>
-                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
-                                        src="img/earth.png">
-                                    <br>Earth</button></td>
-                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
-                                        src="img/water.png">
-                                    <br>Water</button></td>
+                            <td class="rowOfOptionBtn"> <button class="pOptionBtn" id="Wood"> <img class="optionImg"
+                                        src="img/wood.png"><br>Wood</button></td>
+                            <td class="rowOfOptionBtn"> <button class="pOptionBtn" id="Earth"><img class="optionImg"
+                                        src="img/earth.png"><br>Earth</button></td>
+                            <td class="rowOfOptionBtn"><button class="pOptionBtn" id="Water"><img class="optionImg"
+                                        src="img/water.png"><br>Water</button></td>
                         </tr>
                         <tr class="rowOfDamageAmtTR">
-                            <td class="rowOfDamageAmt"><span id="cFireDamage"></span></td>
-                            <td class="rowOfDamageAmt"><span id="cMetalDamage"></span></td>
-                            <td class="rowOfDamageAmt"><span id="cWoodDamage"></span></td>
-                            <td class="rowOfDamageAmt"><span id="cEarthDamage"></span></td>
-                            <td class="rowOfDamageAmt"><span id="cWaterDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="pFireDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="pMetalDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="pWoodDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="pEarthDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="pWaterDamage"></span></td>
                         </tr>
                     </table>
                 </div>
+
+                <div class="confirmChoiceBtnDiv">
+                    <button id="confirmChoiceBtn">Confirm Choice</button>
+                </div>
             </div>
 
+            <div class="computer" id="computerDiv">
+                <div class="nameHpDiv" id="computerNameHp">
+                    <div class="nameP">Opponent: <span id="computerName"></span></div>
+                    <div class="HpP">
+                        <div class="wordsHP">HP: </div>
+                        <div class="healthBarBorder">
+                            <div class="healthBar" id="cHealthBar"> <span id="computerHp"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+
+                    <div id="cChoiceAvatarTable">
+                        <div id="computerChoiceDiv">
+                            <p id="cChoiceText">Opponent's choice: <span id="cChoice"></span></p>
+
+                            <div class=playingZone id="cPlayingZone">
+                                <div class="choiceWeaponDiv" id="cChoiceWeaponDiv">
+                                    <img class="cChoiceWeapon" id="cFire" src="img/cFire@4x.png">
+                                    <img class="cChoiceWeapon" id="cMetal" src="img/pcMetal@4x.png">
+                                    <img class="cChoiceWeapon" id="cWood" src="img/cWood@4x.png">
+                                    <img class="cChoiceWeapon" id="cEarth" src="img/pcEarth@4x.png">
+                                    <img class="cChoiceWeapon" id="cWater" src="img/cWater@4x.png">
+                                </div>
+
+                                <div class="avatarDiv">
+                                    <!-- need to change the image -->
+                                    <img class="cAvatar" id="cNeutral" src="img/neutral@4x.png">
+                                    <img class="cAvatar" id="cAttack" src="img/attack@4x.png">
+                                    <img class="cAvatar" id="cHappy" src="img/happywin@4x.png">
+                                    <img class="cAvatar" id="cSad" src="img/lose@4x.png">
+                                    <img class="cAvatar" id="cBlink" src="img/blink@4x.png">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="cDamageTableDiv">
+                            <table class="DamagePowerTable" id="computerDamagePowerTable">
+                                <tr class="damagePowerHeaderTR">
+                                    <th colspan="5" class="damagePowerHeader">Damage Power</th>
+                                </tr>
+
+                                <tr class="rowOfOptionBtnTR">
+                                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                                src="img/fire.png">
+                                            <br>Fire </button></td>
+                                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                                src="img/metal.png">
+                                            <br>Metal</button></td>
+                                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                                src="img/wood.png">
+                                            <br>Wood</button></td>
+                                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                                src="img/earth.png">
+                                            <br>Earth</button></td>
+                                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                                src="img/water.png">
+                                            <br>Water</button></td>
+                                </tr>
+                                <tr class="rowOfDamageAmtTR">
+                                    <td class="rowOfDamageAmt"><span id="cFireDamage"></span></td>
+                                    <td class="rowOfDamageAmt"><span id="cMetalDamage"></span></td>
+                                    <td class="rowOfDamageAmt"><span id="cWoodDamage"></span></td>
+                                    <td class="rowOfDamageAmt"><span id="cEarthDamage"></span></td>
+                                    <td class="rowOfDamageAmt"><span id="cWaterDamage"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
 
-    </div>
-
-    <div class="storyContainer">
-        <p id="storyText"></p>
-    </div>
-
-    <div id="btnConsoleDiv">ID=btnConsole
-        <div class="nextBtnsDiv">nextBtnsDiv
-            <button class="nextBtns" id="nextBtnToS1">Next to S1</button>
-            <button class="nextBtns" id="nextBtnToS2">Next to S2</button>
-            <button class="nextBtns" id="nextBtnToS3">Next to S3</button>
-            <button class="nextBtns" id="nextBtnToS4">Next to S4</button>
-            <button class="nextBtns" id="nextBtnToS5">Next to S5</button>
-            <button class="nextBtns" id="nextBtnToS6">Next to S6</button>
-            <button class="nextBtns" id="nextBtnToS7">Next to S7</button>
-            <button class="nextBtns" id="nextBtnToS8">Next to S8</button>
-            <button class="nextBtns" id="nextBtnToS9">Next to S9</button>
-            <button class="nextBtns" id="nextBtnToS10">Next to S10</button>
-            <button class="nextBtns" id="nextBtnToS11">Next to S11</button>
-            <button class="nextBtns" id="nextBtnToS12">Next to S12</button>
-            <button class="nextBtns" id="nextBtnToS13">Next to S13</button>
-            <button class="nextBtns" id="nextBtnToEndGamePage">Next to endgame</button>
+        <div class="storyContainer">
+            <p id="storyText"></p>
         </div>
 
-        <div class="startMatchBtnsDiv">matchBtnsDiv
-            <button class="startMatchBtns" id="startMatchBtn1">Engage Match 1</button>
-            <button class="startMatchBtns" id="startMatchBtn2">Engage Match 2</button>
-            <button class="startMatchBtns" id="startMatchBtn3">Engage Match 3</button>
-            <button class="startMatchBtns" id="startMatchBtn4">Engage Match 4</button>
-            <button class="startMatchBtns" id="startMatchBtn5">Engage Match 5</button>
-            <button class="startMatchBtns" id="startMatchBtn6">Engage Match 6</button>
-            <button class="startMatchBtns" id="startMatchBtn7">Engage Match 7</button>
+        <div id="btnConsoleDiv">ID=btnConsole
+            <div class="nextBtnsDiv">nextBtnsDiv
+                <button class="nextBtns" id="nextBtnToS1">Next to S1</button>
+                <button class="nextBtns" id="nextBtnToS2">Next to S2</button>
+                <button class="nextBtns" id="nextBtnToS3">Next to S3</button>
+                <button class="nextBtns" id="nextBtnToS4">Next to S4</button>
+                <button class="nextBtns" id="nextBtnToS5">Next to S5</button>
+                <button class="nextBtns" id="nextBtnToS6">Next to S6</button>
+                <button class="nextBtns" id="nextBtnToS7">Next to S7</button>
+                <button class="nextBtns" id="nextBtnToS8">Next to S8</button>
+                <button class="nextBtns" id="nextBtnToS9">Next to S9</button>
+                <button class="nextBtns" id="nextBtnToS10">Next to S10</button>
+                <button class="nextBtns" id="nextBtnToS11">Next to S11</button>
+                <button class="nextBtns" id="nextBtnToS12">Next to S12</button>
+                <button class="nextBtns" id="nextBtnToS13">Next to S13</button>
+                <button class="nextBtns" id="nextBtnToEndGamePage">Next to endgame</button>
+            </div>
+
+            <div class="startMatchBtnsDiv">matchBtnsDiv
+                <button class="startMatchBtns" id="startMatchBtn1">Engage Match 1</button>
+                <button class="startMatchBtns" id="startMatchBtn2">Engage Match 2</button>
+                <button class="startMatchBtns" id="startMatchBtn3">Engage Match 3</button>
+                <button class="startMatchBtns" id="startMatchBtn4">Engage Match 4</button>
+                <button class="startMatchBtns" id="startMatchBtn5">Engage Match 5</button>
+                <button class="startMatchBtns" id="startMatchBtn6">Engage Match 6</button>
+                <button class="startMatchBtns" id="startMatchBtn7">Engage Match 7</button>
+            </div>
+
+            <div class="nextRoundBtnDiv">nextRoundBtnDiv
+                <button id="nextRoundBtn">Next Round</button>
+            </div>
+
+            <div class="rematchBtnDiv">rematchBtnDiv
+                <button id="rematchBtn">Rematch</button>
+            </div>
         </div>
 
-        <div class="nextRoundBtnDiv">nextRoundBtnDiv
-            <button id="nextRoundBtn">Next Round</button>
+
+        <div class="endGameContainer">
+            <p id="storyText"></p>
+            <p>Game Time Player: <span id="timeSpent"></span></p>
+            show image of all 5 elements
+            Return to Main Page <button id="returnToStartGamePage">Return</button>
         </div>
-
-        <div class="rematchBtnDiv">rematchBtnDiv
-            <button id="rematchBtn">Rematch</button>
-        </div>
-    </div>
-
-
-    <div class="endGameContainer">
-        <p id="storyText"></p>
-        <p>Game Time Player: <span id="timeSpent"></span></p>
-        show image of all 5 elements
-        Return to Main Page <button id="returnToStartGamePage">Return</button>
-    </div>
 
 
 </body>
