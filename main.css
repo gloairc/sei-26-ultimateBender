@@ -33,9 +33,9 @@ padding: 0 0 0 10px;
 font-size: 15pt;
 }
 
-div {
+/* div {
     border: 1px solid maroon
-}
+} */
 
 body {
     background-color: white;
@@ -49,6 +49,9 @@ body {
     text-align: center; */
 }
 
+#storyText{
+    font-size: 18pt;
+}
 .startContainer, .storyContainer, .matchContainer, .endGameContainer, #btnConsole {
 margin: auto;
 width: 90%;
@@ -68,9 +71,10 @@ text-align: center;
 } */
 
 #message {
-    background-color: rgb(218, 141, 218);
+    background-color: rgb(247, 108, 247);
     font-size: 16pt;
-    padding: 5px 5px 5px 5px
+    padding: 5px 5px 5px 5px;
+    height: 22px;
 }
 
 #PvsC{

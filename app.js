@@ -253,7 +253,7 @@ const gameLogic = () => {//destroy, tie, endMatch
         console.log("pair is a weaken-heal pair")
     }
     $("#pHealthBar").css("width", game.player.avatarHp + "%");
-    $("#cHealthBar").css("width", game.computer.avatarHp +"%");
+    $("#cHealthBar").css("width", game.computer.avatarHp + "%");
     render()
 }
 
@@ -343,7 +343,7 @@ const newRound = () => {//reset the messages & buttons
 
 const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm btn, show nextBtn
     if (game.player.avatarHp === 0) {//player lose
-        game.message = "You lost the round and have been defeated. Try harder next time!";
+        game.message = "You lost the round and have been defeated. But do not worry. Success doesn’t always come easily and we have to learn from our mistakes. Let us try again.";
         disableOptAndConfirmBtn();
         hideAllPAvatar();
         $("#pBlink").show();
@@ -377,7 +377,8 @@ const resetMatch = () => {//hp 100, round 1
     game.player.avatarChoice = "To be decided";
     game.computer.avatarChoice = "To be decided";
     game.rounds = 1;
-
+    $("#pHealthBar").css("width", game.player.avatarHp + "%");
+    $("#cHealthBar").css("width", game.computer.avatarHp + "%");
     $(".pOptionBtn").attr("disabled", false);
     $("#confirmChoiceBtn").attr("disabled", true);
     $(".nextRoundBtnDiv").hide();
@@ -430,11 +431,24 @@ const showMatchContainer = () => {//show match container with empty console
 const showStory0Backstory = () => {// update player name, backstory 
     showStoryWithNextBtnDiv();
     $("#nextBtnToS1").show();
-    const story0Text = "This is the 1st story. Explain backstory and being teleported."
-    game.storyText = story0Text;
-    updatePlayerName();
-    resetMatch();
-    render()
+    const story0Text = "This is the world of the 5 elements: Fire, Metal, Wood, Earth and Water. Most people are born with an aptitude for one element, but a rare few are blessed with more. The rarest of them all are the ones who possess all 5, and those who have successfully bended all 5 are called the Ultimate Bender, the strongest of the strongest."
++ " But the recent years have taken a dark turn when the only known Ultimate Bender alive at this moment has turned to the dark side, and has brought about calamity and oppression to this world. Many high - level benders are desperate to train and fight against him, but none prevailed."
+ +
+" Every year, children are brought to the faction leaders to check their aptitudes, and can choose the faction of the element that they have an aptitude for to bend their element. This year, your parents decided that it was time to check your aptitude."
++ 
+" Your parents bring you to the Fire faction leader, the faction closest to your home. Dozens of children were queuing up for their turn with their parents, and you are one of them."
++
+" Finally, it was your turn."
++
+" You approach the Fire faction leader, Fire shifu, nervous, but excited.He greets you, gives a warm smile, and places his hand on your head before closing his eyes."
++
+" Suddenly, his eyes flew open, his face alight."
++
+" Fire shifu: Congratulations child! You seem to have good aptitude for all 5 elements, a miracle! As someone who possesses has the possibility to bend the 5 elements, you have a chance to defeat the dark one. Are you willing to live up to your calling?";
+game.storyText = story0Text;
+updatePlayerName();
+resetMatch();
+render()
 }
 
 const showStory1RealizedMissionAndInFire = () => {//intro to FIRE and before match
@@ -446,17 +460,24 @@ const showStory1RealizedMissionAndInFire = () => {//intro to FIRE and before mat
     game.faction = elements[0];
     $("#message").css("background-color", "lightpink");
 
-    game.computer = createPlayer("Fire Opponent", 100, 30, 30, 30, 30, 30);
-    const story1Text = "Urgh my head feels heavy and gorgy. what just happened? where am i? IN THE FIRE NATION? and im supposed to be the ultimate bender to save the world? friendly guy came to spare with me"
-    game.storyText = story1Text;
+    game.computer = createPlayer("Zuko", 100, 40, 30, 30, 30, 30);
     updatePlayerName();
+    const story1Text = "You: I will try. Fire shifu: Great. Come back tomorrow and we shall begin your first lesson on the Wood element!"
+    + "Feeling a little shocked, you bid the Fire shifu farewell and went home with your parents."
+    
+    + "The next day, you woke up bright and early to meet Fire shifu."
+    + "Fire shifu: Good morning" + game.player.avatarname +
+    "Before I  teach you on the ways of the Fire faction so you can bend your Fire element, let us review the relationship between the 5 elements. Study the image below. There is 2 cycles which balances all the 5 elements - the overacting cycle (where one element overwhelms or dominates the other) and the weaken-heal cycle (where one element strengthens or heals the other elements while it is being weakened). Having this knowledge is crucial in your preparation to become the Ultimate Bender as whether you win or lose a battle hinges on how well-versed you are with this. Analyze your opponent’s stance to determine the element he’s using and counterattack with an element which dominates or weaken it."
+    
+    + "Once you have studied the relationship, we may begin our first lesson, a battle with one of my disciple, Zuko."
+    game.storyText = story1Text;  
     resetMatch();
     render()
 }
 
 const showMatch1Easy = () => {//show match screen for Round 1
     showMatchContainer() //show with empty console
-    game.computer = createPlayer("First Fire Opponent", 100, 30, 30, 30, 30, 30);
+    game.computer = createPlayer("Zuko", 100, 40, 30, 30, 30, 30);
     $("#nextBtnToS2").show()
     render()
 }
@@ -466,7 +487,7 @@ const showStory2AfterFirstMatchNowFireBattle = () => {//before fighting fire shi
     $("#startMatchBtn2").show();
     resetMatch();
     game.computer = createPlayer("Fire Shifu", 100, 80, 50, 50, 50, 30);
-    const story2Text = "first match wasnt that bad xxxx.Its time for my first battle with " + game.computer.avatarName + ". Turn up the heat!"
+    const story2Text = "First match wasnt that bad. After training under Fire Shifu and his disciple, it was time for my first battle with " + game.computer.avatarName + ". Turn up the heat!"
     game.storyText = story2Text;
     render()
 }
@@ -481,7 +502,9 @@ const showStory3AfterFireBattleMoveToMetal = () => {//after defeat fire, move on
     showStoryWithNextBtnDiv();
     $("#nextBtnToS4").show();
     resetMatch();
-    const story3Text = "Now that I've mastered " + elements[0] + ". It's time to move on in my journey to " + elements[1] + "."
+    const story3Text = "Congratulations " + game.player.avatarName + ", you have successfully bended your Fire element! I am very proud of you. Now, you have to go to the next shifu, Metal shifu, to bend your metal element. I wish you all the best and hope to see you at the final battle." 
++    "This is a teleportation stone. You just have to say out the name of the person you wish to teleport to and you will teleport there."
+    +"*Hands stone over"
     game.storyText = story3Text
     render()
 }
@@ -494,7 +517,7 @@ const showStory4IntroMetalBeforeBattle = () => {//intro to metal before the matc
     showStoryWithMatchBtnDiv();
     $("#startMatchBtn3").show();
     game.computer = createPlayer("Metal Shifu", 100, 50, 60, 30, 30, 30);
-    const story4Text = "I arrived at Metal Faction. Things are different here. xxxx After weeks for training, its time to put my skills to the test with " + game.computer.avatarName + ". Hope im ready for this"
+    const story4Text = "Hello " + game.player.avatarName + " , I am the Metal shifu. Metal element is about harvesting and collecting, learning how to take things and make use of them. I will now teach you how to bend the metal element."
     game.storyText = story4Text
     render()
 }
@@ -522,7 +545,7 @@ const showStory6IntroWoodBeforeBattle = () => {//intro to wood before the match
     showStoryWithMatchBtnDiv();
     $("#startMatchBtn4").show();
     game.computer = createPlayer("Wood ShiFu", 100, 50, 50, 60, 30, 30);
-    const story6Text = "Wood Faction. Well, all things woody. As you would expect, forested area. xxxx After weeks for training, its time to put my skills to face " + game.computer.avatarName + ". Ready to be an Axe-men!"
+    const story6Text = "Wood Faction. Well, all things woody. As expected, forested area. Wood Shifu told me that Wood element is about Growth and Vitality, Strength and Flexibility. After weeks for training, its time to put my skills to face " + game.computer.avatarName + ". Ready to be an Axe-men!"
     game.storyText = story6Text
     render()
 }
@@ -550,7 +573,7 @@ const showStory8IntroEarthBeforeBattle = () => {//intro to wood before the match
     showStoryWithMatchBtnDiv();
     $("#startMatchBtn5").show();
     game.computer = createPlayer("Earth Shifu", 100, 50, 50, 50, 60, 30);
-    const story8Text = "Earth. Dig deep. xxxx After weeks for training, its time to put my skills to face " + game.computer.avatarName + ". Tractor on!"
+    const story8Text = "Earth shifu: Welcome to the Earth faction. Wood shifu has told me about you. The Earth element is about fruition, making your actions have effects… Why not we have a battle to see how much you've learnt."
     game.storyText = story8Text
     render()
 }
@@ -578,7 +601,7 @@ const showStory10IntroWaterBeforeBattle = () => {//intro to water before the mat
     showStoryWithMatchBtnDiv();
     $("#startMatchBtn6").show();
     game.computer = createPlayer("Water Shifu", 100, 50, 50, 50, 50, 60);
-    const story10Text = "Water. The flow of..... But there's no time to waste.  xxxx The last master to battle before i become a full-fledge elemental bender." + game.computer.avatarName + ", its time to go against the tide!"
+    const story10Text = "Water shifu: Welcome " + game.player.avatarName + " , I am Water shifu. The water element is about being still, and know when to retreat and recuperate. Let us begin the lesson..."
     game.storyText = story10Text
     render()
 }
@@ -593,7 +616,8 @@ const showStory11AfterWaterBattleRest = () => {//after defeat water, learnt all 
     showStoryWithNextBtnDiv();
     $("#nextBtnToS12").show();
     resetMatch();
-    const story11Text = "mastered all 5! time to recupurate and prepare myself for the ultimate showdown!"
+    const story11Text = "Congratulations, you have successfully bended the water element. Now, you have control of all 5 of your elements and are ready to face the dark lord. I wish you all the best."
+   +"After saying your thanks and goodbyes, you left the Water faction and started to walk home. You've wanted some time to recupurate and prepare myself for the ultimate showdown."
     game.storyText = story11Text
     render()
 }
@@ -605,7 +629,7 @@ const showStory12DarkLordAppears = () => {//evil lord appears
 
     showStoryWithMatchBtnDiv();
     $("#startMatchBtn7").show();
-    const story12Text = "But time waits for no man. The skies turn grey, the surrounding changed... and there in front of me stood someone with an ominious powerful presence. Could it be...? He spoke. I sensed an aura of a new ultimate bender. do you think you can overthrow me? im going to destory you before you have a chance"
+    const story12Text = "But time waits for no man. The skies turn grey, the surrounding changed... and there in front of me stood someone with an ominious powerful presence. Could it be...? He spoke. I sensed a growing aura of a new ultimate bender. Do you think you can overthrow me? I'm going to elimate you before you have a chance."
     game.storyText = story12Text
     resetMatch();
     game.computer = createPlayer("Dark Lord", 100, 60, 60, 60, 60, 60);
@@ -622,7 +646,7 @@ const showStory13AfterFinalShowdownWithDarkLord = () => {//after defeat evil lor
     showStoryWithNextBtnDiv();
     $("#nextBtnToEndGamePage").show();
     resetMatch();
-    const story13Text = "That was a tough battle. but im glad to make it out alive. with evil lord defeated, the people celebrated. i can finally rest. Peace has return!"
+    const story13Text = "Dark Lord: Noo! I am losing my bending power! How could I have lost?!" + "<br />" + "The 5 shifus suddenly appear." + "<br />" + "Fire shifu: Congratulations " + game.player.avatarName + ", you have defeated the dark one! Thank you very much! Don’t worry, he has lost almost all his bending abilities, and his core has been destroyed and will no longer be able to attain the power he once had. The other shifus and I will take it from here. Rest well child!";
     game.storyText = story13Text
     render()
 }
@@ -634,6 +658,7 @@ const showEndGamePage = () => {
     $("#btnConsoleDiv").hide();
 
     $(".endGameContainer").show()
+    $("#inputName").val() = ""
 }
 
 const restartTheGame = () => {
@@ -742,6 +767,6 @@ const render = () => {
 
 $(() => {
     setup();
-    $(".matchContainer").show(); // skip the name part for now CSS
+    // $(".matchContainer").show(); // skip the name part for now CSS
     render();
 })
