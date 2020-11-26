@@ -58,7 +58,7 @@ text-align: center;
 .nameHpDiv{
     display: flex;
     justify-content: space-between;
-    background-color: grey;
+    background-color: darkslategrey;
 }
 
 .nameP, .HpP{
@@ -66,7 +66,7 @@ text-align: center;
     font-size: 20pt;
 }
 
-#pChoiceText {
+#pChoiceText, #cChoiceText {
     font-size: 16px;
 }
 
@@ -80,21 +80,20 @@ padding: 0;
 
 }
 
-.pAvatarDiv{
+.avatarDiv{
     display: inline-block;
     padding: 0;
 } 
 
 .avatar{
-    height: auto;
-    width: 100px;
+    height: 163px;
+    width: auto;
     margin: 10px 0px 10px 20px;
     padding: 0;
     display: flex;
 }
 
-
-.pChoiceWeapon{
+.pChoiceWeapon, .cChoiceWeapon{
     height: 150px;
     width: auto;
     margin: 10px 20px 10px 0px;

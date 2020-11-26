@@ -50,14 +50,14 @@
                 <p id="pChoiceText">Your choice: <span id="pChoice"></span></p>
 
                 <div class=playingZone>
-                    <div class="pAvatarDiv">
+                    <div class="avatarDiv">
                         <img class="avatar" id="pNeutral" src="img/neutral@4x.png">
-                        <img class="avatar" id="pAttack" src="img/pAttack@4x.png">
+                        <img class="avatar" id="pAttack" src="img/attack@4x.png">
                         <img class="avatar" id="pHappy" src="img/happywin@4x.png">
                         <img class="avatar" id="pSad" src="img/lose@4x.png">
                     </div>
 
-                    <div class="pChoiceWeaponDiv">
+                    <div class="choiceWeaponDiv">
                         <img class="pChoiceWeapon" id="pFire" src="img/pFire@4x.png">
                         <img class="pChoiceWeapon" id="pMetal" src="img/pcMetal@4x.png">
                         <img class="pChoiceWeapon" id="pWood" src="img/pWood@4x.png">
@@ -109,9 +109,29 @@
             </div>
 
             <div id="computerChoiceDiv">
-                <h4>Opponent's Choice</h4>
-                <p id="cChoice"></p>
+                <p id="cChoiceText">Opponent's choice: <span id="cChoice"></span></p>
+
+                <div class=playingZone>
+                    <div class="choiceWeaponDiv">
+                        <img class="cChoiceWeapon" id="cFire" src="img/cFire@4x.png">
+                        <img class="cChoiceWeapon" id="cMetal" src="img/pcMetal@4x.png">
+                        <img class="cChoiceWeapon" id="cWood" src="img/cWood@4x.png">
+                        <img class="cChoiceWeapon" id="cEarth" src="img/pcEarth@4x.png">
+                        <img class="cChoiceWeapon" id="cWater" src="img/cWater@4x.png">
+                    </div>
+
+                    <div class="avatarDiv">
+                        <!-- need to change the image -->
+                        <img class="avatar" id="cNeutral" src="img/neutral@4x.png">
+                        <img class="avatar" id="cAttack" src="img/attack@4x.png">
+                        <img class="avatar" id="cHappy" src="img/happywin@4x.png">
+                        <img class="avatar" id="cSad" src="img/lose@4x.png">
+                    </div>
+
+                </div>
             </div>
+
+
 
             <table class="DamagePowerTable" id="computerDamagePowerTable">
                 <tr class="damagePowerHeaderTR">
