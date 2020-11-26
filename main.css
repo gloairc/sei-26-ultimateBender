@@ -74,6 +74,11 @@ text-align: center;
     font-size: 16pt;
 }
 
+.avatar{
+    height: auto;
+    width: 15%;
+}
+
 /* Damage Power Table on Match Screen */
 .DamagePowerTable, th, td, tr{
     border: 1px royalblue solid
