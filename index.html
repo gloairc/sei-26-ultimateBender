@@ -47,11 +47,24 @@
             </div>
 
             <div id="playerChoiceDiv">
-                <h4>Your choice</h4>
-                <p id="pChoice"></p>
-                <img class="avatar" id="pNeutral" src="img/neutral@4x.png">
-                <img class="avatar" id="pHappy" src="img/happywin@4x.png">
-                <img class="avatar" id="pLose" src="img/lose@4x.png">
+                <p id="pChoiceText">Your choice: <span id="pChoice"></span></p>
+
+                <div class=playingZone>
+                    <div class="pAvatarDiv">
+                        <img class="avatar" id="pNeutral" src="img/neutral@4x.png">
+                        <img class="avatar" id="pAttack" src="img/pAttack@4x.png">
+                        <img class="avatar" id="pHappy" src="img/happywin@4x.png">
+                        <img class="avatar" id="pSad" src="img/lose@4x.png">
+                    </div>
+
+                    <div class="pChoiceWeaponDiv">
+                        <img class="pChoiceWeapon" id="pFire" src="img/pFire@4x.png">
+                        <img class="pChoiceWeapon" id="pMetal" src="img/pcMetal@4x.png">
+                        <img class="pChoiceWeapon" id="pWood" src="img/pWood@4x.png">
+                        <img class="pChoiceWeapon" id="pEarth" src="img/pcEarth@4x.png">
+                        <img class="pChoiceWeapon" id="pWater" src="img/pWater@4x.png">
+                    </div>
+                </div>
             </div>
 
             <table class="DamagePowerTable" id="playerDamagePowerTable">
@@ -111,11 +124,11 @@
                     <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/metal.png">
                             <br>Metal</button></td>
                     <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/wood.png">
-                        <br>Wood</button></td>
+                            <br>Wood</button></td>
                     <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/earth.png">
-                        <br>Earth</button></td>
+                            <br>Earth</button></td>
                     <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/water.png">
-                        <br>Water</button></td>
+                            <br>Water</button></td>
                 </tr>
                 <tr class="rowOfDamageAmtTR">
                     <td class="rowOfDamageAmt"><span id="cFireDamage"></span></td>
