@@ -163,6 +163,8 @@ const tieLogic = (playerChoice, computerChoice) => {//message for a tie
         }
         hideAllPAvatar();
         $("#pHappy").show();
+        hideAllCAvatar();
+        $("#cSad").show()
     } else if (computerPower > playerPower) {
         game.player.avatarHp = game.player.avatarHp - diffInPower
         game.message = "Both of you chose " + playerChoice + ". But " + game.computer.avatarName + "'s" + playerChoice + " power is stronger and inflicted some damange on you.";
@@ -171,10 +173,14 @@ const tieLogic = (playerChoice, computerChoice) => {//message for a tie
         }
         hideAllPAvatar();
         $("#pSad").show();
+        hideAllCAvatar();
+        $("#cHappy").show()
     } else {
         game.message = "It's a tie! Both of your " + playerChoice + " power are equally matched!"
         hideAllPAvatar();
         $("#pNeutral").show();
+        hideAllCAvatar();
+        $("#cNeutral").show()
     }
 
 }
@@ -202,11 +208,15 @@ const destroyLogic = (playerChoice, computerChoice) => {//if pC and cC are in a 
         game.message = "You lost the round. You suffered damange by your opponent."
         hideAllPAvatar();
         $("#pSad").show();
+        hideAllCAvatar();
+        $("#cHappy").show()
     } else if (destroyPair[playerChoice][computerChoice] === "destroys") {
         damageIncurredToComputer()
         game.message = "You won the round. You caused damaged to your opponent.";
         hideAllPAvatar();
         $("#pHappy").show();
+        hideAllCAvatar();
+        $("#cSad").show()
         console.log("Computer being damaged, player chose " + playerChoice + ", computer chose " + computerChoice);
     }
 }
@@ -231,6 +241,8 @@ const weakenHealLogic = (playerChoice, computerChoice) => {//if pC and cC are in
         console.log("player hurt opponent and got healed, player chose " + playerChoice + ", computer chose " + computerChoice)
         hideAllPAvatar();
         $("#pHappy").show();
+        hideAllCAvatar();
+        $("#cSad").show()
     } else if (weakenHealPair[playerChoice][computerChoice] === "heals") {
         weakenPlayer();
         healComputer();
@@ -238,6 +250,8 @@ const weakenHealLogic = (playerChoice, computerChoice) => {//if pC and cC are in
         console.log("opponent hurt player and got healed, player chose " + playerChoice + ", computer chose " + computerChoice)
         hideAllPAvatar();
         $("#pSad").show();
+        hideAllCAvatar();
+        $("#cHappy").show()
     }
 }
 
@@ -347,6 +361,8 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
         disableOptAndConfirmBtn();
         hideAllPAvatar();
         $("#pBlink").show();
+        hideAllCAvatar();
+        $("#cHappy").show()
         $(".nextRoundBtnDiv").hide()
         $(".rematchBtnDiv").show();
 
@@ -356,6 +372,8 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
         disableOptAndConfirmBtn();
         hideAllPAvatar();
         $("#pHappy").show();
+        hideAllCAvatar();
+        $("#cBlink").show()
         $(".nextRoundBtnDiv").hide()
         $(".nextBtnsDiv").show();
         // game.storyText = "and the adventure continues"

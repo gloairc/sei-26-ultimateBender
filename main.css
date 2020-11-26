@@ -58,17 +58,46 @@ width: 90%;
 text-align: center;
 }
 
-#btnConsole {
-    background-color: coral;
+
+#inputName{
+    height: 24pt;
+    width: 300px;
+    font-size: 20pt;
+    font-family: 'Barlow Condensed', sans-serif;
 }
 
-/* #startGameBtn{
+#greetingHeader{
+font-size: 45pt;
+}
 
+#enterName{
+    font-size: 24pt;
+}
+
+ #startGameBtn{
+margin: 20px;
+font-size: 18pt;
+font-family: 'Barlow Condensed', sans-serif;
+padding: 3px 10px 3px 10px;
+} 
+
+#confirmChoiceBtn, .nextBtns, .startMatchBtns, #nextRoundBtn, #rematchBtn, #returnToStartGamePage{
+    font-size: 16pt;
+    font-family: 'Barlow Condensed', sans-serif;
+    padding: 5px 10px 5px 10px;
 }
 
 #confirmChoiceBtn{
+    margin: 15px;
+}
 
-} */
+.nextBtns, .startMatchBtns, #nextRoundBtn, #rematchBtn, #returnToStartGamePage{
+ margin-left: 5%;
+}
+
+#round{
+    font-size: 24pt;
+}
 
 #message {
     background-color: rgb(247, 108, 247);
