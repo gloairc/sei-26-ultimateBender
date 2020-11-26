@@ -63,18 +63,30 @@ text-align: center;
     display: inline-block;
 }
 
+/* Damage Power Table on Match Screen */
+#playerDamagePowerTable, th, td, tr{
+    border: 1px royalblue solid
+}
+
+.rowOfDamageAmt, .rowOfOptionBtn{
+    text-align: center;
+}
+
+.damagePowerHeader{
+ text-align: left;
+}
 
 .pOptionBtn{
-background-color: transparent;
-border: none;
-}
-
-.pOptionBtnDiv{
-    display: flex;
-flex-direction: row;
-}
-
-.optionImg{
-height: 45px;
-width: auto;
-}
+    background-color: transparent;
+    border: none;
+    }
+    
+    .pOptionBtnDiv{
+        display: flex;
+    flex-direction: row;
+    }
+    
+    .optionImg{
+    height: 45px;
+    width: auto;
+    }
