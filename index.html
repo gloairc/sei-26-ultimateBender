@@ -51,10 +51,10 @@
 
                 <div class=playingZone>
                     <div class="avatarDiv">
-                        <img class="avatar" id="pNeutral" src="img/neutral@4x.png">
-                        <img class="avatar" id="pAttack" src="img/attack@4x.png">
-                        <img class="avatar" id="pHappy" src="img/happywin@4x.png">
-                        <img class="avatar" id="pSad" src="img/lose@4x.png">
+                        <img class="pAvatar" id="pNeutral" src="img/neutral@4x.png">
+                        <img class="pAvatar" id="pAttack" src="img/attack@4x.png">
+                        <img class="pAvatar" id="pHappy" src="img/happywin@4x.png">
+                        <img class="pAvatar" id="pSad" src="img/lose@4x.png">
                     </div>
 
                     <div class="choiceWeaponDiv" id="pChoiceWeaponDiv">
@@ -95,70 +95,73 @@
                 </tr>
             </table>
 
-
-
             <div class="confirmChoiceBtnDiv">
                 <button id="confirmChoiceBtn">Confirm Choice</button>
             </div>
         </div>
 
-        <div class="computer">
+        <div class="computer" id="computerDiv">
             <div class="nameHpDiv" id="computerNameHp">
                 <div class="nameP">Opponent: <span id="computerName"></span></div>
                 <div class="HpP">Health Points: <span id="computerHp"></span></div>
             </div>
 
-            <div id="computerChoiceDiv">
-                <p id="cChoiceText">Opponent's choice: <span id="cChoice"></span></p>
+            <div id="computerChoiceAvatarTable">
+                <div id="computerChoiceDiv">
+                    <p id="cChoiceText">Opponent's choice: <span id="cChoice"></span></p>
 
-                <div class=playingZone>
-                    <div class="choiceWeaponDiv" id="cChoiceWeaponDiv">
-                        <img class="cChoiceWeapon" id="cFire" src="img/cFire@4x.png">
-                        <img class="cChoiceWeapon" id="cMetal" src="img/pcMetal@4x.png">
-                        <img class="cChoiceWeapon" id="cWood" src="img/cWood@4x.png">
-                        <img class="cChoiceWeapon" id="cEarth" src="img/pcEarth@4x.png">
-                        <img class="cChoiceWeapon" id="cWater" src="img/cWater@4x.png">
+                    <div class=playingZone id="cPlayingZone">
+                        <div class="choiceWeaponDiv" id="cChoiceWeaponDiv">
+                            <img class="cChoiceWeapon" id="cFire" src="img/cFire@4x.png">
+                            <img class="cChoiceWeapon" id="cMetal" src="img/pcMetal@4x.png">
+                            <img class="cChoiceWeapon" id="cWood" src="img/cWood@4x.png">
+                            <img class="cChoiceWeapon" id="cEarth" src="img/pcEarth@4x.png">
+                            <img class="cChoiceWeapon" id="cWater" src="img/cWater@4x.png">
+                        </div>
+
+                        <div class="avatarDiv">
+                            <!-- need to change the image -->
+                            <img class="cAvatar" id="cNeutral" src="img/neutral@4x.png">
+                            <img class="cAvatar" id="cAttack" src="img/attack@4x.png">
+                            <img class="cAvatar" id="cHappy" src="img/happywin@4x.png">
+                            <img class="cAvatar" id="cSad" src="img/lose@4x.png">
+                        </div>
+
                     </div>
+                </div>
+                <div id="cDamageTableDiv">
+                    <table class="DamagePowerTable" id="computerDamagePowerTable">
+                        <tr class="damagePowerHeaderTR">
+                            <th colspan="5" class="damagePowerHeader">Damage Power</th>
+                        </tr>
 
-                    <div class="avatarDiv">
-                        <!-- need to change the image -->
-                        <img class="avatar" id="cNeutral" src="img/neutral@4x.png">
-                        <img class="avatar" id="cAttack" src="img/attack@4x.png">
-                        <img class="avatar" id="cHappy" src="img/happywin@4x.png">
-                        <img class="avatar" id="cSad" src="img/lose@4x.png">
-                    </div>
-
+                        <tr class="rowOfOptionBtnTR">
+                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                        src="img/fire.png">
+                                    <br>Fire </button></td>
+                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                        src="img/metal.png">
+                                    <br>Metal</button></td>
+                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                        src="img/wood.png">
+                                    <br>Wood</button></td>
+                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                        src="img/earth.png">
+                                    <br>Earth</button></td>
+                            <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg"
+                                        src="img/water.png">
+                                    <br>Water</button></td>
+                        </tr>
+                        <tr class="rowOfDamageAmtTR">
+                            <td class="rowOfDamageAmt"><span id="cFireDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="cMetalDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="cWoodDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="cEarthDamage"></span></td>
+                            <td class="rowOfDamageAmt"><span id="cWaterDamage"></span></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-
-
-
-            <table class="DamagePowerTable" id="computerDamagePowerTable">
-                <tr class="damagePowerHeaderTR">
-                    <th colspan="5" class="damagePowerHeader">Damage Power</th>
-                </tr>
-
-                <tr class="rowOfOptionBtnTR">
-                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/fire.png">
-                            <br>Fire </button></td>
-                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/metal.png">
-                            <br>Metal</button></td>
-                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/wood.png">
-                            <br>Wood</button></td>
-                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/earth.png">
-                            <br>Earth</button></td>
-                    <td class="rowOfOptionBtn"><button class="cOption"><img class="optionImg" src="img/water.png">
-                            <br>Water</button></td>
-                </tr>
-                <tr class="rowOfDamageAmtTR">
-                    <td class="rowOfDamageAmt"><span id="cFireDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="cMetalDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="cWoodDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="cEarthDamage"></span></td>
-                    <td class="rowOfDamageAmt"><span id="cWaterDamage"></span></td>
-                </tr>
-            </table>
-
 
 
         </div>

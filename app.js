@@ -291,7 +291,8 @@ const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & rende
     disableOptAndConfirmBtn();
     showCChoice();
     render()
-    $("#pChoiceWeaponDiv").addClass("horizTranslate")//need to remove later
+    $("#pChoiceWeaponDiv").addClass("horizTranslate")
+    $("#cChoiceWeaponDiv").addClass("horizTranslate")
     gameLogic();//tie, destroy, weaken/harm
     $(".nextRoundBtnDiv").show();
     $("#nextRoundBtn").show();
@@ -346,6 +347,7 @@ const resetMatch = () => {//hp 100, round 1
     $("#cNeutral").show()
     hideAllCWeapons()
     $("#pChoiceWeaponDiv").removeClass("horizTranslate")
+    $("#cChoiceWeaponDiv").removeClass("horizTranslate")
     game.message = "Time for battle!"
     game.player.avatarHp = 100;
     game.computer.avatarHp = 100;
@@ -717,6 +719,6 @@ const render = () => {
 
 $(() => {
     setup();
-    // $(".matchContainer").show(); // skip the name part for now CSS
+    $(".matchContainer").show(); // skip the name part for now CSS
     render();
 })

@@ -74,10 +74,21 @@ text-align: center;
 display: inline-flex
 }
 
-.playerChoiceDiv {
+#playerChoiceDiv, #computerChoiceDiv {
 display: inline-block;
-padding: 0;
+padding: 10px 10px 10px 10px ;
+background-color: deepskyblue;
+}
 
+#computerDiv{
+    display: flexbox;
+}
+
+#computerChoiceAvatarTable{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: right;
 }
 
 .avatarDiv{
@@ -85,7 +96,7 @@ padding: 0;
     padding: 0;
 } 
 
-.avatar{
+.pAvatar{
     height: 163px;
     width: auto;
     margin: 10px 0px 10px 20px;
@@ -93,22 +104,50 @@ padding: 0;
     display: flex;
 }
 
+.cAvatar{
+    height: 163px;
+    width: auto;
+    margin: 10px 20px 10px 0px;
+    padding: 0;
+    display: flex;
+}
+
+
 .pChoiceWeapon, .cChoiceWeapon{
     height: 150px;
     width: auto;
     margin: 10px 20px 10px 0px;
 }
 
-#pChoiceWeaponDiv.horizTranslate{
-    transition: 2s;
-    margin-left: 200%;
+#cChoiceWeaponDiv{
+    background-color: floralwhite;
 }
 
+/* Transition for attacking */
+#pChoiceWeaponDiv.horizTranslate{
+    transition-delay: 1s;
+    transition: 2s;
+    /* margin-left: 200%; */
+    transform: translateX(400px)
+}
+
+#cChoiceWeaponDiv.horizTranslate{
+    transition-delay: 1s;
+    transition: 2s;
+    /* margin-right: 200%; */
+    transform: translateX(-400px)
+}
 
 /* Damage Power Table on Match Screen */
 .DamagePowerTable, th, td, tr{
     border: 1px royalblue solid
+
 }
+
+#cDamageTableDiv{
+ display: inline-flex;
+ justify-content: flex-end;
+   }
 
 .rowOfDamageAmt, .rowOfOptionBtn{
     text-align: center;
