@@ -99,6 +99,12 @@ padding: 0;
     margin: 10px 20px 10px 0px;
 }
 
+#pChoiceWeaponDiv.horizTranslate{
+    transition: 2s;
+    margin-left: 200%;
+}
+
+
 /* Damage Power Table on Match Screen */
 .DamagePowerTable, th, td, tr{
     border: 1px royalblue solid

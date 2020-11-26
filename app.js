@@ -291,6 +291,7 @@ const playRound = () => {//click confirmChoice -> showCChoice, gameLogic & rende
     disableOptAndConfirmBtn();
     showCChoice();
     render()
+    $("#pChoiceWeaponDiv").addClass("horizTranslate")//need to remove later
     gameLogic();//tie, destroy, weaken/harm
     $(".nextRoundBtnDiv").show();
     $("#nextRoundBtn").show();
@@ -308,6 +309,7 @@ const newRound = () => {//reset the messages & buttons
     hideAllCAvatar()
     $("#cNeutral").show()
     hideAllCWeapons()
+    $("#pChoiceWeaponDiv").removeClass("horizTranslate")
     game.player.avatarChoice = "To be decided";
     game.computer.avatarChoice = "To be decided";
     game.rounds++;
@@ -343,6 +345,7 @@ const resetMatch = () => {//hp 100, round 1
     hideAllCAvatar()
     $("#cNeutral").show()
     hideAllCWeapons()
+    $("#pChoiceWeaponDiv").removeClass("horizTranslate")
     game.message = "Time for battle!"
     game.player.avatarHp = 100;
     game.computer.avatarHp = 100;
