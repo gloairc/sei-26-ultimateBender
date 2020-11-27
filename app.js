@@ -488,7 +488,8 @@ const showStory1RealizedMissionAndInFire = () => {//intro to FIRE and before mat
     "Before I  teach you on the ways of the Fire faction so you can bend your Fire element, let us review the relationship between the 5 elements. Study the image below. There is 2 cycles which balances all the 5 elements - the overacting cycle (where one element overwhelms or dominates the other) and the weaken-heal cycle (where one element strengthens or heals the other elements while it is being weakened). Having this knowledge is crucial in your preparation to become the Ultimate Bender as whether you win or lose a battle hinges on how well-versed you are with this. Analyze your opponent’s stance to determine the element he’s using and counterattack with an element which dominates or weaken it."
     
     + "Once you have studied the relationship, we may begin our first lesson, a battle with one of my disciple, Zuko."
-    game.storyText = story1Text;  
+    game.storyText = story1Text; 
+    $("#cycleImg").show()
     resetMatch();
     render()
 }
@@ -504,6 +505,7 @@ const showStory2AfterFirstMatchNowFireBattle = () => {//before fighting fire shi
     showStoryWithMatchBtnDiv();
     $("#startMatchBtn2").show();
     resetMatch();
+    $("#cycleImg").hide()
     game.computer = createPlayer("Fire Shifu", 100, 80, 50, 50, 50, 30);
     const story2Text = "First match wasnt that bad. After training under Fire Shifu and his disciple, it was time for my first battle with " + game.computer.avatarName + ". Turn up the heat!"
     game.storyText = story2Text;
@@ -699,6 +701,7 @@ const setup = () => {
     $(".endGameContainer").hide();
     enableStartGameBtn()
     $("#btnConsoleDiv").hide()
+    $("#cycleImg").hide()
 
     //CSS AND ATTR EVENT
     $("#factionHeaderDiv").css("visibility", "hidden");

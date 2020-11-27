@@ -52,6 +52,12 @@ body {
 #storyText{
     font-size: 18pt;
 }
+
+#cycleImg{
+    height: 10%;
+    width: auto;
+}
+
 .startContainer, .storyContainer, .matchContainer, .endGameContainer, #btnConsole {
 margin: auto;
 width: 90%;
