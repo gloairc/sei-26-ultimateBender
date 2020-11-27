@@ -580,7 +580,7 @@ const showStory7AfterWoodBattleMoveToEarth = () => {//after defeat wood, move on
     showStoryWithNextBtnDiv();
     $("#nextBtnToS8").show();
     resetMatch();
-    const story7Text = "Now that I've mastered " + elements[2] + ", i'm halfway to becoming the Ultimate Bender to defeat the evil lord. It's not easy, but i'm going to persevere on! Moving onto " + elements[3] + "."
+    const story7Text = "Now that I've mastered " + elements[2] + ", i'm halfway to becoming the Ultimate Bender to defeat the dark lord. It's not easy, but i'm going to persevere on! Moving onto " + elements[3] + "."
     game.storyText = story7Text
     render()
 }
@@ -642,7 +642,7 @@ const showStory11AfterWaterBattleRest = () => {//after defeat water, learnt all 
     render()
 }
 
-const showStory12DarkLordAppears = () => {//evil lord appears
+const showStory12DarkLordAppears = () => {//dark lord appears
     $("#header").css("background-color", "purple");
     game.faction = "unknown";
     $("#message").css("background-color", "rgb(248, 117, 248)");
@@ -662,11 +662,11 @@ const showMatch7withDarkLord = () => {//Fight water shifu
     render()
 }
 
-const showStory13AfterFinalShowdownWithDarkLord = () => {//after defeat evil lord
+const showStory13AfterFinalShowdownWithDarkLord = () => {//after defeat dark lord
     showStoryWithNextBtnDiv();
     $("#nextBtnToEndGamePage").show();
     resetMatch();
-    const story13Text = "Dark Lord: Noo! I am losing my bending power! How could I have lost?!" + "<br />" + "The 5 shifus suddenly appear." + "<br />" + "Fire shifu: Congratulations " + game.player.avatarName + ", you have defeated the dark one! Thank you very much! Don’t worry, he has lost almost all his bending abilities, and his core has been destroyed and will no longer be able to attain the power he once had. The other shifus and I will take it from here. Rest well child!";
+    const story13Text = "Dark Lord: Noo! I am losing my bending power! How could I have lost?! The 5 shifus suddenly appear. Fire shifu: Congratulations " + game.player.avatarName + ", you have defeated the dark one! Thank you very much! Don’t worry, he has lost almost all his bending abilities, and his core has been destroyed and will no longer be able to attain the power he once had. The other shifus and I will take it from here. Rest well child!";
     game.storyText = story13Text
     render()
 }
