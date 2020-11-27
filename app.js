@@ -33,7 +33,7 @@ const createPlayer = (name, hp, dFire, dMetal, dWood, dEarth, dWater) => {
 const game = {
     rounds: 1,
     message: "",
-    player: createPlayer("", 100, 100, 100, 100, 100, 100),
+    player: createPlayer("", 100, 30, 30, 30, 30, 30),
     computer: createPlayer("placeholder", 100, 30, 30, 30, 30, 30),
     storyText: "",
     faction: elements[0] //which element country are we in
@@ -146,7 +146,7 @@ const showCChoice = () => { //display C's choice
 }
 
 const updatePlayerDamagingPower = () => {//update faction power by +5
-    game.player.avatarDamagingPower[game.faction] += 5
+    game.player.avatarDamagingPower[game.faction] += 10
 }
 
 //GAME LOGIC FOR THE ULTIMATE SCISSORS PAPER STONE
@@ -367,7 +367,7 @@ const endMatch = () => {//when hp=0, win or loss message, disable opt&confirm bt
         $(".rematchBtnDiv").show();
 
     } else if (game.computer.avatarHp === 0) {//player wins!
-        game.message = "You won the round and defeated your opponent. Congratulations! You also improved your " + game.faction + " power by 5xp";
+        game.message = "You won the round and defeated your opponent. Congratulations! You also improved your " + game.faction + " power by 10xp";
         updatePlayerDamagingPower();
         disableOptAndConfirmBtn();
         hideAllPAvatar();
@@ -679,6 +679,7 @@ const showEndGamePage = () => {
 
     $(".endGameContainer").show()
     $("#inputName").val() = ""
+    render();
 }
 
 const restartTheGame = () => {
@@ -689,6 +690,12 @@ const restartTheGame = () => {
     $(".endGameContainer").hide();
     enableStartGameBtn()
     $("#btnConsoleDiv").hide()
+
+    $("#header").css("background-color", "black");
+    game.faction = elements[0];
+    $("#factionHeaderDiv").css("visibility", "hidden");
+    $("#message").css("background-color", " rgb(247, 108, 247)");
+    game.player = createPlayer("", 100, 30, 30, 30, 30, 30);
 }
 
 //set up (clicks)
